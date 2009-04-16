@@ -56,6 +56,7 @@ namespace AutoGen.App
                 UnregisterTex(pa);
                 return;
             }
+            AppDomain.CurrentDomain.AssemblyResolve += ObjectFormatter.CurrentDomain_AssemblyResolve;
             Application.Run(new Main());
         }
 

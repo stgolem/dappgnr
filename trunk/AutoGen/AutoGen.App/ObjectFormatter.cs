@@ -15,7 +15,6 @@ namespace AutoGen.App
 
         public static object GetObject(byte[] buffer)
         {
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             object res;
             try
             {
@@ -24,7 +23,6 @@ namespace AutoGen.App
             {
                 throw new Exception("Ошибка десереализации", ex);
             }
-            AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
             return res;
         }
 
