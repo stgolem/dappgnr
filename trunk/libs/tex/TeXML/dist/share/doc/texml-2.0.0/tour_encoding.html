@@ -1,0 +1,27 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Encodings</title>
+<meta name="keywords" content="texml,example,encoding">
+<meta name="description" content="Improving generation of non-latin TeX documents by writing in the desired encoding.">
+<link rel="stylesheet" type="text/css" href="texml.css">
+</head>
+<body>
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" align="right"></a><div style="width:150;float:right;font-size:66%;">Previous step: &#8220;<a href="tour_xslt.html">TeXML and XSLT</a>&#8221;</div>
+    <a name="id2245593"></a><h1>Encodings</h1>
+    
+    
+    <p>Consider TeXML with Russian letters:</p>
+    <pre><span xml:base="code/tour_encoding1.tex.xml"><span class="synIdentifier">&lt;TeXML&gt;</span>&#1090;&#1077;&#1082;&#1089;&#1090;<span class="synIdentifier">&lt;/TeXML&gt;</span></span></pre>
+    <p>Default translation to LaTeX produces:</p>
+    <pre><span xml:base="code/tour_encoding2.tex.xml"><span class="synStatement">\cyrchar\cyrt</span><span class="synSpecial">{}</span><span class="synStatement">\cyrchar\cyre</span><span class="synSpecial">{}</span><span class="synStatement">\cyrchar\cyrk</span><span class="synSpecial">{}</span>....</span></pre>
+    <p>The result is correct, but those who speak Russian prefer to see the real Russian letters instead of the substitutional commands.</p>
+    <p>To achieve this, specify the desired output encoding to the TeXML processor using the command line parameter <tt>--encoding</tt> (or <tt>-e</tt>). When the output encoding is, for example, koi8-r, the result is:</p>
+    <pre>&#1090;&#1077;&#1082;&#1089;&#1090;</pre>
+  <p>Next step: &#8220;<a href="tour_ascii.html">ASCII output</a>&#8221;</p>
+<hr>
+<div class="footnote">
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" vspace="10"></a><br>This page: <a href="http://getfo.org/texml/tour_encoding.html">http://getfo.org/texml/tour_encoding.html</a><br>
+</div>
+</body>
+</html>

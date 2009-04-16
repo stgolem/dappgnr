@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>More TeXML</title>
+<meta name="keywords" content="texml,example">
+<meta name="description" content="An example of a TeXML document with the most often used TeXML elements.">
+<link rel="stylesheet" type="text/css" href="texml.css">
+</head>
+<body>
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" align="right"></a><div style="width:150;float:right;font-size:66%;">Previous step: &#8220;<a href="tour_simple.html">Simple TeXML file</a>&#8221;</div>
+    <a name="id2245260"></a><h1>More TeXML</h1>
+    
+    
+    <p>This TeXML document uses more TeXML elements:</p>
+      <pre><span xml:base="code/tour_more.xml.xml"><span class="synIdentifier">&lt;TeXML&gt;</span>
+  <span class="synIdentifier">&lt;<em>cmd</em> </span><span class="synType">name</span>=<span class="synConstant">"documentclass"</span><span class="synIdentifier">&gt;</span>
+    <span class="synIdentifier">&lt;opt&gt;</span>a4paper<span class="synIdentifier">&lt;/opt&gt;</span>
+    <span class="synIdentifier">&lt;parm&gt;</span>article<span class="synIdentifier">&lt;/parm&gt;</span>
+  <span class="synIdentifier">&lt;/cmd&gt;</span>
+  ....
+  <span class="synIdentifier">&lt;<em>env</em> </span><span class="synType">name</span>=<span class="synConstant">"document"</span><span class="synIdentifier">&gt;</span>
+  Hello, <span class="synIdentifier">&lt;<em>group</em>&gt;&lt;<em>cmd</em> </span><span class="synType">name</span>=<span class="synConstant">"it"</span><span class="synIdentifier">/&gt;</span>World<span class="synIdentifier">&lt;/group&gt;</span>!
+  <span class="synIdentifier">&lt;/env&gt;</span>
+<span class="synIdentifier">&lt;/TeXML&gt;</span>
+</span></pre>
+    <p>After converting to TeX, the result is:</p>
+    <pre><span xml:base="code/tour_more.out.xml"><span class="synStatement">\<em>documentclass</em></span><span class="synSpecial">[</span><span class="synConstant">a4paper</span><span class="synSpecial">]{</span><span class="synPreProc">article</span><span class="synSpecial">}</span> ....
+<span class="synPreProc">\begin{<em>document</em>}</span>
+Hello, <em><span class="synSpecial">{</span></em><span class="synType">\<em>it</em></span><span class="synSpecial">{}</span>World<span class="synSpecial">}</span>!
+<span class="synPreProc">\end{document}</span>
+</span></pre>
+    <p>This example demonstrates the three most often used TeXML elements:</p>
+    <ul>
+      <li>
+<tt>cmd</tt> creates a LaTeX command,</li>
+      <li>
+<tt>env</tt> env creates a LaTeX environment,</li>
+      <li>
+<tt>group</tt> group creates a LaTeX group,</li>
+    </ul>
+    <p>The example also demonstrates how to create the LaTeX header using regular TeXML instead of disabling escaping.</p>
+  <p>Next step: &#8220;<a href="tour_better.html">Better layout</a>&#8221;</p>
+<hr>
+<div class="footnote">
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" vspace="10"></a><br>This page: <a href="http://getfo.org/texml/tour_more.html">http://getfo.org/texml/tour_more.html</a><br>
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Simple TeXML file</title>
+<meta name="keywords" content="texml,example">
+<meta name="description" content="An example of a simple TeXML document and associated discussion.">
+<link rel="stylesheet" type="text/css" href="texml.css">
+</head>
+<body>
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" align="right"></a>
+    <a name="id2245146"></a><h1>Simple TeXML file</h1>
+    
+    
+    <p>An example of a simple TeXML document:</p>
+    <pre><span xml:base="code/tour_simple.xml.xml"><span class="synIdentifier">&lt;<em>TeXML</em>&gt;</span>
+<span class="synIdentifier">&lt;TeXML </span><em><span class="synType">escape</span>=<span class="synConstant">"0"</span></em><span class="synIdentifier">&gt;</span>
+\documentclass[a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+<span class="synIdentifier">&lt;/TeXML&gt;</span>
+<span class="synIdentifier">&lt;env </span><span class="synType">name</span>=<span class="synConstant">"document"</span><span class="synIdentifier">&gt;</span>
+I'm not afraid of the symbols
+<em>$</em>, <em>^</em>, <em>&gt;</em> and others.
+<span class="synIdentifier">&lt;/env&gt;</span>
+<span class="synIdentifier">&lt;/TeXML&gt;</span>
+</span></pre>
+    <p>The result of conversion to TeX is the LaTeX document:</p>
+    <pre><span xml:base="code/tour_simple.out.xml"><span class="synStatement">\documentclass</span><span class="synSpecial">[</span><span class="synConstant">a4paper</span><span class="synSpecial">]{</span><span class="synPreProc">article</span><span class="synSpecial">}</span>
+<span class="synStatement">\usepackage</span><span class="synSpecial">[</span><span class="synConstant">latin1</span><span class="synSpecial">]{inputenc}</span>
+<span class="synStatement">\usepackage</span><span class="synSpecial">[</span><span class="synConstant">T1</span><span class="synSpecial">]{fontenc}</span>
+<span class="synPreProc">\begin{document}</span>
+I'm not afraid of the symbols
+<em><span class="synStatement">\textdollar</span><span class="synSpecial">{}</span></em>, <em>\^<span class="synSpecial">{}</span></em>, <em><span class="synStatement">\textgreater</span><span class="synSpecial">{}</span></em> and others.
+<span class="synPreProc">\end{document}</span>
+</span></pre>
+    <p>This example demonstrates:</p>
+    <ul>
+      <li>the root element is <tt>TeXML</tt>,</li>
+      <li>TeX special symbols are escaped automatically,</li>
+      <li>it's possible to disable escaping.</li>
+    </ul>
+    <p>By the way, while preparing the original LaTeX example, I made two errors:</p>
+    <ul>
+      <li>
+<tt>\textgreater</tt> instead of <tt>\textgreater{}</tt> (result &#8212; no space after the symbol <tt>&gt;</tt>),</li>
+      <li>
+<tt>\^</tt> instead of <tt>\^{}</tt> (result &#8212; circumflex over comma instead of the symbol <tt>^</tt>).</li>
+    </ul>
+    <p>TeXML saves me from such dummy errors.</p>
+    <p>Disabling escaping is not recommended. In most cases it's a misuse of TeXML. But to make examples simple, I do use it for creating the LaTeX header.</p>
+  <p>Next step: &#8220;<a href="tour_more.html">More TeXML</a>&#8221;</p>
+<hr>
+<div class="footnote">
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" vspace="10"></a><br>This page: <a href="http://getfo.org/texml/tour_simple.html">http://getfo.org/texml/tour_simple.html</a><br>
+</div>
+</body>
+</html>
