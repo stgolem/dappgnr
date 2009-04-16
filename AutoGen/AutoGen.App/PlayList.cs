@@ -59,7 +59,7 @@ namespace AutoGen.App
 
         private void FillLastPlayList()
         {
-            if (myAppMainForm.MyAppData.LastPlayList != null)
+            if (myAppMainForm.MyAppData.LastPlayList != null && myAppMainForm.MyAppData.LastPlayList.ItemCollection != null)
             {
                 playListItemCollection = new List<AutoGenPlayListItem>(myAppMainForm.MyAppData.LastPlayList.ItemCollection);
                 playListItems = MakePloList(playListItemCollection);
@@ -86,33 +86,51 @@ namespace AutoGen.App
 
         private void gridControl1_DragDrop(object sender, DragEventArgs e)
         {
-            AutoGenPlayListItem item = new AutoGenPlayListItem((TaskObject)e.Data.GetData(typeof(TaskObject)), myAppMainForm.MyAppData.MainProperties.DefaultPrinter);
-            if (item.TaskObject != null)
+            TaskObject to = e.Data.GetData(typeof(TaskObject)) as TaskObject;
+            if (to != null)
             {
-                if (!item.TaskObject.IsFolder)
+                AutoGenPlayListItem item = new AutoGenPlayListItem(to, (IAutoGenPrinter) myAppMainForm.GetDefaultPrinter());
+                if (item.TaskObject != null)
                 {
-                    GridHitInfo hi =
-                        gridView1.CalcHitInfo(((Control)sender).PointToClient(MousePosition));
-                    if (hi.RowHandle < 0)
+                    if (!item.TaskObject.IsFolder)
                     {
-                        playListItemCollection.Add(item);
-                        ((List<PlayListObject>)gridControl1.DataSource).Add(new PlayListObject(item));
+                        GridHitInfo hi =
+                            gridView1.CalcHitInfo(((Control)sender).PointToClient(MousePosition));
+                        if (hi.RowHandle < 0)
+                        {
+                            playListItemCollection.Add(item);
+                            ((List<PlayListObject>)gridControl1.DataSource).Add(new PlayListObject(item));
+                        }
+                        else
+                        {
+                            playListItemCollection.Insert(hi.RowHandle, item);
+                            ((List<PlayListObject>)gridControl1.DataSource).Insert(hi.RowHandle, new PlayListObject(item));
+                        }
+                        playListItems = MakePloList(playListItemCollection);
+                        gridControl1.RefreshDataSource();
+                        SaveLPL();
                     }
-                    else
-                    {
-                        playListItemCollection.Insert(hi.RowHandle, item);
-                        ((List<PlayListObject>)gridControl1.DataSource).Insert(hi.RowHandle, new PlayListObject(item));
-                    }
-                    playListItems = MakePloList(playListItemCollection);
-                    gridControl1.RefreshDataSource();
                 }
+            }
+        }
+
+        public void AddItemToList(TaskObject task)
+        {
+            AutoGenPlayListItem item = new AutoGenPlayListItem(task, (IAutoGenPrinter) myAppMainForm.GetDefaultPrinter());
+            if (!item.TaskObject.IsFolder)
+            {
+                playListItemCollection.Add(item);
+                ((List<PlayListObject>) gridControl1.DataSource).Add(new PlayListObject(item));
+                playListItems = MakePloList(playListItemCollection);
+                gridControl1.RefreshDataSource();
+                SaveLPL();
             }
         }
 
         private void gridControl1_DragEnter(object sender, DragEventArgs e)
         {
-            TaskObject to = (TaskObject) e.Data.GetData(typeof (TaskObject));
-            if (!to.IsFolder)
+            TaskObject to = e.Data.GetData(typeof (TaskObject)) as TaskObject;
+            if (to != null && !to.IsFolder)
             {
                 Focus();
                 e.Effect = DragDropEffects.Copy;
@@ -134,15 +152,20 @@ namespace AutoGen.App
             }
             if (canClose)
             {
-                for (int i = 0; i < ((List<PlayListObject>)gridControl1.DataSource).Count; i++)
-                {
-                    PlayListObject listObject = ((List<PlayListObject>)gridControl1.DataSource)[i];
-                    playListItemCollection[i].From(listObject);
-                }
-                myAppMainForm.MyAppData.LastPlayList.ItemCollection = playListItemCollection.ToArray();
+                SaveLPL();
             }
             else e.Cancel = true;
             isOpened = !canClose;
+        }
+
+        private void SaveLPL()
+        {
+            for (int i = 0; i < ((List<PlayListObject>)gridControl1.DataSource).Count; i++)
+            {
+                PlayListObject listObject = ((List<PlayListObject>)gridControl1.DataSource)[i];
+                playListItemCollection[i].From(listObject);
+            }
+            myAppMainForm.MyAppData.LastPlayList.ItemCollection = playListItemCollection.ToArray();
         }
 
         private void barButtonItem1_ItemClick(object sender, ItemClickEventArgs e)
@@ -216,7 +239,7 @@ namespace AutoGen.App
             if (bwork.IsCanceled || e.Cancelled) OutputSend(new AGOutputArgs("Прервано пользователем"));
             else
             {
-                if (!Visible) Show(myAppMainForm);
+                if (!Visible) Show();
                 foreach (Form ownedForm in OwnedForms)
                 {
                     ownedForm.Close();
@@ -245,11 +268,19 @@ namespace AutoGen.App
                 PlayListObject listObject = ((List<PlayListObject>)gridControl1.DataSource)[i];
                 if (listObject.NeedGenerate)
                 {
-                    AutoGenParameters agp = new AutoGenParameters();
-                    agp.CountInVariant = listObject.Count;
-                    listObject.Printer.Plugin.InitPlugin(myAppMainForm);
-                    ((IAutoGenPrinter)listObject.Printer.Plugin).Print(
-                        listObject.PlayListItem.TaskObject.Task.GenerateTask(agp, worker), worker);
+                    try
+                    {
+                        AutoGenParameters agp = new AutoGenParameters();
+                        agp.Variants = listObject.Variants;
+                        agp.CountInVariant = listObject.Count;
+                        agp.TaskName = listObject.TaskName;
+                        listObject.Printer.Plugin.InitPlugin(myAppMainForm);
+                        ((IAutoGenPrinter)listObject.Printer.Plugin).Print(
+                            listObject.PlayListItem.TaskObject.Task.GenerateTask(agp, worker), worker, agp);
+                    } catch (Exception ex)
+                    {
+                        XtraMessageBox.Show(ex.Message, "Ошибка" , MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -270,6 +301,7 @@ namespace AutoGen.App
             }
             playListItems = MakePloList(playListItemCollection);
             gridControl1.RefreshDataSource();
+            SaveLPL();
         }
 
         public PlayListObject GetSelectedObject()
@@ -304,7 +336,7 @@ namespace AutoGen.App
 
         private void PlayList_Deactivate(object sender, EventArgs e)
         {
-            Opacity = 0.7;
+            Opacity = 1;
         }
 
         private void gridControl1_KeyPress(object sender, KeyPressEventArgs e)
@@ -346,6 +378,7 @@ namespace AutoGen.App
                 imgColumn.Tag = !flag;
                 playListItems = MakePloList(playListItemCollection);
                 gridControl1.RefreshDataSource();
+                SaveLPL();
             }
         }
 
@@ -356,12 +389,14 @@ namespace AutoGen.App
 
         private void SavePlayList()
         {
+            SaveLPL();
             AutoGenPlayList list = new AutoGenPlayList();
-            list.ItemCollection = playListItemCollection.ToArray();
-            list.PlayListName = myAppMainForm.MyAppData.LastPlayList.PlayListName;
+            list = myAppMainForm.MyAppData.LastPlayList;
+            //list.ItemCollection = playListItemCollection.ToArray();
+            //list.PlayListName = myAppMainForm.MyAppData.LastPlayList.PlayListName;
             PlayListManager.SavePlayList(list);
             Text = list.PlayListName;
-            myAppMainForm.MyAppData.LastPlayList = list;
+            //myAppMainForm.MyAppData.LastPlayList = list;
         }
 
         private void barButtonItem5_ItemClick(object sender, ItemClickEventArgs e)
@@ -380,6 +415,7 @@ namespace AutoGen.App
                 playListItems = MakePloList(playListItemCollection);
                 gridControl1.DataSource = playListItems;
                 gridControl1.RefreshDataSource();
+                SaveLPL();
             }
         }
     }

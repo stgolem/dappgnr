@@ -15,6 +15,7 @@ using DevExpress.XtraBars.Localization;
 using DevExpress.XtraEditors;
 using DevExpress.XtraTab.ViewInfo;
 using DevExpress.XtraTabbedMdi;
+using DevExpress.XtraEditors.Controls;
 
 namespace AutoGen.App
 {
@@ -30,9 +31,14 @@ namespace AutoGen.App
 
         #region IAutoGenApplication Members
 
-        public object MainRibbonToolbar
+        public IAutoGenDBSettings MainDBSettings
         {
-            get { return appMainRibbon; }
+            get { return new AutoGenDBSettings(); }
+        }
+
+        public object MainForm
+        {
+            get { return this; }
         }
 
         public string MainApplicationDir
@@ -56,6 +62,26 @@ namespace AutoGen.App
         }
 
         #endregion
+
+        public IAutoGenPlugin GetDefaultPrinter()
+        {
+            foreach (IAutoGenPlugin printer in myLoadedPrinters)
+            {
+                if (printer.GUID.Equals(MyAppData.MainProperties.DefaultPrinterGuid))
+                    return printer;
+            }
+            return null;
+        }
+
+        public PlayList PlayList
+        {
+            get { return playList; }
+        }
+
+        public BarManager AppBarManager
+        {
+            get { return appBarManager; }
+        }
 
         public class RusBarLocilizer : BarLocalizer
         {
@@ -86,10 +112,63 @@ namespace AutoGen.App
             }
         }
 
+
+        public class RusControlLocalizer : Localizer
+        {
+            public override string Language
+            {
+                get
+                {
+                    return "ru-Ru";
+                }
+            }
+
+            public override string GetLocalizedString(StringId id)
+            {
+                switch (id)
+                {
+                    case StringId.CalcError:
+                        return "Ошибка вычисления";
+                    case StringId.Cancel:
+                        return "Отмена";
+                    case StringId.CalcButtonBack:
+                        return "Назад";
+                    case StringId.TextEditMenuCopy:
+                        return "Копировать";
+                    case StringId.TextEditMenuCut:
+                        return "Вырезать";
+                    case StringId.TextEditMenuPaste:
+                        return "Вставить";
+                    case StringId.TextEditMenuDelete:
+                        return "Удалить";
+                    case StringId.TextEditMenuSelectAll:
+                        return "Выделить все";
+                    case StringId.TextEditMenuUndo:
+                        return "Отмена";
+                    case StringId.XtraMessageBoxAbortButtonText:
+                        return "Прервать";
+                    case StringId.XtraMessageBoxCancelButtonText:
+                        return "Отмена";
+                    case StringId.XtraMessageBoxOkButtonText:
+                        return "Ок";
+                    case StringId.XtraMessageBoxNoButtonText:
+                        return "Нет";
+                    case StringId.XtraMessageBoxYesButtonText:
+                        return "Да";
+                    case StringId.XtraMessageBoxIgnoreButtonText:
+                        return "Пропустить";
+                    case StringId.XtraMessageBoxRetryButtonText:
+                        return "Повтор";
+                }
+                return base.GetLocalizedString(id);
+            }
+        }
+
         public Main()
         {
             InitializeComponent();
             BarLocalizer.Active = new RusBarLocilizer();
+            Localizer.Active = new RusControlLocalizer();
         }
 
         public void SetStatus(string statusText)
@@ -258,6 +337,9 @@ namespace AutoGen.App
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (PlayList != null)
+                PlayList.Close();
+
             SaveCustomData();
 
             taskList.BeforeClosing(sender, e);
@@ -338,19 +420,19 @@ namespace AutoGen.App
             ShowPlayList();
         }
 
-        private void ShowPlayList()
+        public void ShowPlayList()
         {
             barProgressBar.Visibility = BarItemVisibility.Never;
             barButtonItem7.Enabled = false;
             if (playList != null && playList.IsOpened)
             {
                 playList.Visible = false;
-                playList.Show(this);
+                playList.Show();
             }
             else
             {
                 playList = new PlayList(this);
-                playList.Show(this);
+                playList.Show();
                 playList.Closed += playList_Closed;
             }
         }
@@ -423,6 +505,17 @@ namespace AutoGen.App
                         hPage.MdiChild.Close();
                     }
                 }
+            }
+        }
+
+        private void appMainTabManager_SelectedPageChanged(object sender, EventArgs e)
+        {
+            if(appMainTabManager.SelectedPage.MdiChild is UTForm)
+            {
+                ribbonPageGroup2.Visible = false;
+            } else
+            {
+                ribbonPageGroup2.Visible = true;
             }
         }
     }

@@ -39,18 +39,33 @@ namespace AutoGen.App
             printerComboBox.Properties.Items.AddRange(pList.ToArray());
             if (printerComboBox.Properties.Items.Count < 1)
                 printerComboBox.Enabled = false;
-            else printerComboBox.SelectedIndex = pList.GetByPlugin(myAppMainForm.MyAppData.MainProperties.DefaultPrinter);
+            else printerComboBox.SelectedIndex = pList.GetByPlugin(myAppMainForm.GetDefaultPrinter());
+            checkEdit1.Checked = myAppMainForm.MyAppData.MainProperties.NeedUseTex;
         }
 
         private void simpleButton2_Click(object sender, EventArgs e)
         {
-            myAppMainForm.MyAppData.MainProperties.DefaultPrinter = (IAutoGenPrinter) ((PluginContainer)printerComboBox.SelectedItem).Plugin;
+            if (printerComboBox.SelectedItem != null)
+                myAppMainForm.MyAppData.MainProperties.DefaultPrinterGuid =
+                    ((PluginContainer) printerComboBox.SelectedItem).Plugin.GUID;
+            myAppMainForm.MyAppData.MainProperties.NeedUseTex = checkEdit1.Checked;
             Close();
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void printerComboBox_Properties_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            switch((string)e.Button.Tag)
+            {
+                case "Settings":
+                    if (printerComboBox.SelectedItem != null)
+                        ((IAutoGenPrinter) ((PluginContainer) printerComboBox.SelectedItem).Plugin).ShowProperties();
+                    break;
+            }
         }
     }
 }

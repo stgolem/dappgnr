@@ -85,7 +85,13 @@
     <Compile Include="AboutGM.Designer.cs">
       <DependentUpon>AboutGM.cs</DependentUpon>
     </Compile>
+    <Compile Include="ap.cs" />
+    <Compile Include="BrentOpt.cs" />
+    <Compile Include="GMGenerator.cs" />
+    <Compile Include="GMString.cs" />
+    <Compile Include="GMTask.cs" />
     <Compile Include="GradientPlugin.cs" />
+    <Compile Include="lbfgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -98,11 +104,12 @@
     <Compile Include="TaskProperties.Designer.cs">
       <DependentUpon>TaskProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="TaskTableGridMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AboutGM.resx">
-      <SubType>Designer</SubType>
       <DependentUpon>AboutGM.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
@@ -142,6 +149,15 @@
       <Name>AutoGen.TeXML</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\ExpScanner\ExpScanner.csproj">
+      <Project>{82C0E178-6FC8-4C85-8CF5-DF8856071E20}</Project>
+      <Name>ExpScanner</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\AboutLogo.png" />
+    <None Include="Resources\delete16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

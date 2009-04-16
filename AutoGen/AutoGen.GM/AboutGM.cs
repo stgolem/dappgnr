@@ -1,29 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Reflection;
+using System.Text;
+using System.Windows.Forms;
 using DevExpress.XtraEditors;
 
 namespace AutoGen.GM
 {
-    partial class AboutGM : XtraForm
+    public partial class AboutGM : XtraForm
     {
         public AboutGM()
         {
             InitializeComponent();
-
-            //  Initialize the AboutBox to display the product information from the assembly information.
-            //  Change assembly information settings for your application through either:
-            //  - Project->Properties->Application->Assembly Information
-            //  - AssemblyInfo.cs
-            this.Text = String.Format("Информация - {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Версия: {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
         }
 
         #region Assembly Attribute Accessors
@@ -113,7 +104,16 @@ namespace AutoGen.GM
         }
         #endregion
 
-        private void okButton_Click(object sender, EventArgs e)
+        private void AboutGM_Load(object sender, EventArgs e)
+        {
+            Text = AssemblyTitle;
+            labelControl1.Text = AssemblyProduct;
+            labelControl2.Text = AssemblyVersion;
+            labelControl3.Text = AssemblyCopyright;
+            memoEdit1.Text = AssemblyDescription;
+        }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
         {
             Close();
         }

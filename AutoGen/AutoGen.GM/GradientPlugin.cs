@@ -1,7 +1,7 @@
 using System;
-using System.ComponentModel;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using System.Windows.Forms;
 using AutoGen.I;
 using AutoGen.TeXML;
 
@@ -45,7 +45,7 @@ namespace AutoGen.GM
 
         public Guid GUID
         {
-            get { return new Guid("{9D28737F-36FA-4f32-AF50-4A3E03FD242F}"); }
+            get { return new Guid(AssemblyGuid); }
         }
 
         public IAutoGenTask CreateTaskInstance(string taskName)
@@ -61,6 +61,20 @@ namespace AutoGen.GM
         }
 
         #endregion
+
+        public string AssemblyGuid
+        {
+            get
+            {
+                // Get all Description attributes on this assembly
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(GuidAttribute), false);
+                // If there aren't any Description attributes, return an empty string
+                if (attributes.Length == 0)
+                    return "";
+                // If there is a Description attribute, return its value
+                return ((GuidAttribute)attributes[0]).Value;
+            }
+        }
     }
 
     [Serializable]
@@ -70,6 +84,7 @@ namespace AutoGen.GM
         private string taskAutor = "";
         private string taskDescr = "";
         private ITaskControl taskPropertiesControl;
+        private GMTask baseTask = null;
         [NonSerialized]private GradientPlugin hostPlugin = null;
 
         public GradientTask(string _taskName, GradientPlugin host)
@@ -77,6 +92,7 @@ namespace AutoGen.GM
             taskName = _taskName;
             hostPlugin = host;
             taskPropertiesControl = new TaskProperties(this);
+            baseTask = new GMTask();
         }
 
         public GradientTask()
@@ -87,6 +103,12 @@ namespace AutoGen.GM
         {
             get { return taskAutor; }
             set { taskAutor = value; }
+        }
+
+        public GMTask BaseTask
+        {
+            get { return baseTask; }
+            set { baseTask = value; }
         }
 
         #region IAutoGenTask Members
@@ -113,11 +135,66 @@ namespace AutoGen.GM
             }
         }
 
-        public TeXMLDoc GenerateTask(AutoGenParameters Parameters, IAutoGenWorker Worker)
+        public TeXMLDocList GenerateTask(IAutoGenParameters Parameters, IAutoGenWorker Worker)
         {
             if (Worker.IsCanceled) return null;
             Worker.ReportProgress(0, "Начинаем генерацию задачи");
-            TeXMLDoc myDoc = new TeXMLDoc();
+
+            TeXMLDoc myDoc = new TeXMLDoc("T");
+
+            TeXElement head = myDoc.Root.Ins(
+                new TeXRoot().PlainTeX().Ins(
+                    new TeXText(
+                        @"
+\documentclass[12pt,a4paper]{article}
+\usepackage[cp1251]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb,euscript}
+\usepackage[russian]{babel}
+\voffset=-1in   % Удаление верхнего поля драйвера в 1 дюйм
+\topmargin=22mm % Верхнее (нижнее) поле в 22mm
+\textheight=252mm       % Высота тела текста (290-22-26=272)
+\headheight=0mm % место для колонтитула
+\headsep=0mm    % отступ после колонтитула
+\hoffset=-1in   % Удаление левого поля драйвера в 1 дюйм
+\oddsidemargin=15mm     % Левое поле на нечетной странице, 15 мм
+\evensidemargin=23mm    % Левое поле на четной странице, 23 мм
+\textwidth=180.5mm      % Ширина тела текста, 218.5-15-23=180.5
+")));
+            GMGenerator generator = new GMGenerator();
+
+            Worker.ReportProgress(10, "Идет генерация по алгоритму");
+
+            TeXElement body = new TeXEnv("document");
+
+            for (int i = 0; i < Parameters.Variants; i++)
+            {
+                body.Ins(new TeXEnv("center")
+                             .Ins(new TeXCmd("bf").Params("Вариант " + (i + 1))));
+                TeXElement plain = new TeXRoot().PlainTeX();
+                TeXElement en = new TeXEnv("enumerate");
+                for (int j = 0; j < Parameters.CountInVariant; j++)
+                {
+                    if (Worker.IsCanceled)
+                        return null;
+                    Worker.ReportProgress(50, "Идет генерация: вариант " + (i + 1) + " задание " + (j + 1));
+
+                    generator.Generate(BaseTask);
+                    en.Ins(new TeXCmd("item").Gr(false))
+                        .Ins(new TeXText(BaseTask.Output));
+                }
+                body.Ins(plain.Ins(en));
+            }
+
+            Worker.ReportProgress(99, "Генерация задачи завершена");
+
+            head.Ins(body);
+
+            return new TeXMLDocList().Add(myDoc);
+        }
+
+        #endregion
+
+        /*
             myDoc.Root
                 .Ins(new TeXRoot().PlainTeX()
                          .Ins(new TeXText(@"
@@ -190,11 +267,8 @@ namespace AutoGen.GM
                                   .Ins(new TeXGroup()
                                            .Ins(new TeXCmd("small").Gr(false))
                                            .Ins(new TeXText(@"Научный руководитель: А.\,А. Айзикович, к.ф.-м.н., доцент")))));
-            Worker.ReportProgress(100, "Генерация задачи завершена");
-            return myDoc;
-        }
-
-        #endregion
+ 
+ */
 
         #region ISerializable Members
 
@@ -203,12 +277,16 @@ namespace AutoGen.GM
             info.SetType(typeof(GradientTask));
             info.AddValue("taskName", taskName);
             info.AddValue("taskAutor", taskAutor);
+            info.AddValue("taskDescr", taskDescr);
+            info.AddValue("baseTask", baseTask);
         }
 
         public GradientTask(SerializationInfo info, StreamingContext context)
         {
             taskName = info.GetString("taskName");
             taskAutor = info.GetString("taskAutor");
+            taskDescr = info.GetString("taskDescr");
+            baseTask = (GMTask) info.GetValue("baseTask", typeof (GMTask));
         }
 
         #endregion
