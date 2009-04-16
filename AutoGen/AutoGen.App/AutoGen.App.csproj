@@ -350,8 +350,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>mkdir $(TargetDir)Data &gt; nul
-xcopy $(ProjectDir)Plugins\*.* $(TargetDir)Plugins\*.* /E /Q /R /Y &gt; nul
-xcopy $(ProjectDir)TEX\*.* $(TargetDir)TEX\*.* /E /Q /R /Y &gt; nul</PostBuildEvent>
+    <PostBuildEvent>if not exist "$(TargetDir)Data" mkdir "$(TargetDir)Data" &gt; nul
+xcopy "$(ProjectDir)Plugins\*.*" "$(TargetDir)Plugins\*.*" /E /Q /R /Y &gt; nul
+xcopy "$(ProjectDir)TEX\*.*" "$(TargetDir)TEX\*.*" /E /Q /R /Y &gt; nul</PostBuildEvent>
   </PropertyGroup>
 </Project>
