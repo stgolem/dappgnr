@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DevExpress.XtraRichTextEdit.v8.1</name>
+    </assembly>
+    <members>
+        <member name="T:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit">
+
+            <summary>
+                <para>Contains settings specific to an in-place editor that displays RTF data.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.#ctor">
+            <summary>
+                <para>Initializes a new instance of the RepositoryItemRichTextEdit class.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.Assign(DevExpress.XtraEditors.Repository.RepositoryItem)">
+            <summary>
+                <para>Copies the settings of the specified repository item.
+</para>
+            </summary>
+            <param name="item">
+		A <see cref="T:DevExpress.XtraEditors.Repository.RepositoryItem"/> object or its descendant that represents the source of the operation.
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.AutoHeight">
+            <summary>
+                <para>Gets whether the editor's height is calculated automatically to fit the editor's content. This member supports the .NET Framework infrastructure and cannot be used directly from your code.
+</para>
+            </summary>
+            <value>Always <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.CustomHeight">
+            <summary>
+                <para>Gets or sets the editor's height.
+</para>
+            </summary>
+            <value>An integer value that specifies the editor's height, in pixels.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.Editable">
+            <summary>
+                <para>Gets whether the editor's value can be changed.
+</para>
+            </summary>
+            <value>Always <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.EditorTypeName">
+            <summary>
+                <para>Gets the class name of an editor corresponding to the current repository item.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value that identifies the class name of a corresponding editor.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.GetBrick(DevExpress.XtraEditors.PrintCellHelperInfo)">
+            <summary>
+                <para>Returns a brick object that contains information on how the current editor should be printed.
+</para>
+            </summary>
+            <param name="info">
+		A <see cref="T:DevExpress.XtraEditors.PrintCellHelperInfo"/> object that provides information on the editor's state and appearance settings that will be used when the editor is printed.
+
+            </param>
+            <returns>An <see cref="T:DevExpress.XtraPrinting.IVisualBrick"/> object that provides information on how the current editor should be printed.
+</returns>
+
+
+        </member>
+        <member name="P:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.HorizontalIndent">
+            <summary>
+                <para>Gets or sets a horizontal margin between the border and text.
+</para>
+            </summary>
+            <value>An integer value that specifies a horizontal margin, in pixels, between the border and text.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.MaxHeight">
+            <summary>
+                <para>Gets or sets the editor's maximum height.
+</para>
+            </summary>
+            <value>An integer value that specifies the editor's maximum height, in pixels.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.Register">
+            <summary>
+                <para>Registers the current RepositoryItemRichTextEdit instance within the default Repository.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraEditors.Repository.RepositoryItemRichTextEdit.VerticalIndent">
+            <summary>
+                <para>Gets or sets a vertical margin between the border and text.
+</para>
+            </summary>
+            <value>An integer value that specifies a vertical margin, in pixels, between the border and text.
+</value>
+
+
+        </member>
+    </members>
+</doc>
