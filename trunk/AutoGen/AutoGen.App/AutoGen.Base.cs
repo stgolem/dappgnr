@@ -9,7 +9,10 @@ namespace AutoGen.App
         private static readonly string saveFolder = "\\Data\\";
         private static readonly string texFolder = "\\Tex\\";
         private static readonly string texPortFolder = "MTPort\\";
+        private static readonly string texPortRegister = "init.bat";
+        private static readonly string texPortUnRegister = "reset.bat";
         private static readonly string saveFile = "AutoGen.agd";
+        private static readonly string configFile = "AutoGen.agc";
 
         public static string PluginFolder
         {
@@ -24,6 +27,11 @@ namespace AutoGen.App
         public static string SaveFile
         {
             get { return saveFile; }
+        }
+
+        public static string ConfigFile
+        {
+            get { return configFile; }
         }
 
         public static string TexFolder
@@ -54,6 +62,16 @@ namespace AutoGen.App
         public static string TexPortFolder
         {
             get { return AppTexPath + texPortFolder; }
+        }
+
+        public static string TexPortRegister
+        {
+            get { return TexPortFolder + texPortRegister; }
+        }
+
+        public static string TexPortUnRegister
+        {
+            get { return TexPortFolder + texPortUnRegister; }
         }
     }
 }

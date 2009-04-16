@@ -30,6 +30,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <ApplicationIcon>Resources\Logo.ico</ApplicationIcon>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -76,6 +79,7 @@
     <Reference Include="DevExpress.XtraRichTextEdit.v8.1, Version=8.1.1.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Windows\assembly\GAC_MSIL\DevExpress.XtraRichTextEdit.v8.1\8.1.1.0__49d90c14d24271b5\DevExpress.XtraRichTextEdit.v8.1.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -83,16 +87,23 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AGMessageBox.cs" />
+    <Compile Include="AGP.cs" />
     <Compile Include="AutoGen.Base.cs" />
     <Compile Include="AutoGenBGWorker.cs" />
     <Compile Include="AutoGenData.cs" />
+    <Compile Include="AutoGenDB.cs" />
     <Compile Include="AutoGenPlayList.cs" />
+    <Compile Include="InitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InitForm.Designer.cs">
+      <DependentUpon>InitForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +196,18 @@
       <Project>{96AC88BC-A074-499A-BCE8-37AA693F8156}</Project>
       <Name>AutoGen.TeXML</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExpScanner\ExpScanner.csproj">
+      <Project>{82C0E178-6FC8-4C85-8CF5-DF8856071E20}</Project>
+      <Name>ExpScanner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sFraction\sFraction.csproj">
+      <Project>{55D6CE7F-3F47-4E4C-8214-DFDEF21D12D9}</Project>
+      <Name>sFraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WordCore\WordCore.vbproj">
+      <Project>{E4B2F74F-E7F6-49EE-BE69-CBF5AEAEAE46}</Project>
+      <Name>WordCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Delete.png" />
@@ -196,9 +219,6 @@
     <None Include="Resources\NewFolder.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Start.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Task.png" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +228,10 @@
     <None Include="Resources\FolderBack.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="InitForm.resx">
+      <DependentUpon>InitForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainSettings.resx">
       <DependentUpon>MainSettings.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -276,19 +300,7 @@
     <None Include="Resources\InPlugin.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ListPlugin.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Stop16.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Hide16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SaveList.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\OpenList.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Delete16.png" />
@@ -304,6 +316,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\NewTask16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveList.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenList.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ListPlugin.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -29,12 +29,12 @@ namespace AutoGen.App
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.Utils.SuperToolTip superToolTip7 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem7 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem7 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip8 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem8 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem8 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
@@ -49,22 +49,26 @@ namespace AutoGen.App
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.pluginAutor = new DevExpress.XtraGrid.Columns.GridColumn();
             this.pluginVersion = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
+            this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
+            this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
-            this.splitContainerControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
+            this.xtraTabControl1.SuspendLayout();
+            this.xtraTabPage1.SuspendLayout();
+            this.xtraTabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // barManager1
@@ -104,13 +108,13 @@ namespace AutoGen.App
             this.barButtonItem1.GlyphDisabled = global::AutoGen.App.Properties.Resources.AddPlugin;
             this.barButtonItem1.Id = 4;
             this.barButtonItem1.Name = "barButtonItem1";
-            toolTipTitleItem7.Text = "Добавить плагин";
-            toolTipItem7.LeftIndent = 6;
-            toolTipItem7.Text = "Загрузить выбранный файл плагина в папку приложения.\r\nТребует перезапуска програм" +
+            toolTipTitleItem1.Text = "Добавить плагин";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Загрузить выбранный файл плагина в папку приложения.\r\nТребует перезапуска програм" +
                 "мы.";
-            superToolTip7.Items.Add(toolTipTitleItem7);
-            superToolTip7.Items.Add(toolTipItem7);
-            this.barButtonItem1.SuperTip = superToolTip7;
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.barButtonItem1.SuperTip = superToolTip1;
             this.barButtonItem1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
             // 
             // barButtonItem3
@@ -120,12 +124,12 @@ namespace AutoGen.App
             this.barButtonItem3.GlyphDisabled = global::AutoGen.App.Properties.Resources.PlugInfo;
             this.barButtonItem3.Id = 6;
             this.barButtonItem3.Name = "barButtonItem3";
-            toolTipTitleItem8.Text = "Информация о плагине";
-            toolTipItem8.LeftIndent = 6;
-            toolTipItem8.Text = "Открывает информационное окно плагина.";
-            superToolTip8.Items.Add(toolTipTitleItem8);
-            superToolTip8.Items.Add(toolTipItem8);
-            this.barButtonItem3.SuperTip = superToolTip8;
+            toolTipTitleItem2.Text = "Информация о плагине";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Открывает информационное окно плагина.";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.barButtonItem3.SuperTip = superToolTip2;
             this.barButtonItem3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem3_ItemClick);
             // 
             // gridControl1
@@ -138,10 +142,11 @@ namespace AutoGen.App
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(367, 119);
+            this.gridControl1.Size = new System.Drawing.Size(362, 301);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
+            this.gridControl1.DoubleClick += new System.EventHandler(this.gridContro_DoubleClick);
             // 
             // gridView1
             // 
@@ -219,25 +224,6 @@ namespace AutoGen.App
             this.pluginVersion.VisibleIndex = 2;
             this.pluginVersion.Width = 93;
             // 
-            // splitContainerControl1
-            // 
-            this.splitContainerControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerControl1.Horizontal = false;
-            this.splitContainerControl1.Location = new System.Drawing.Point(0, 42);
-            this.splitContainerControl1.Name = "splitContainerControl1";
-            this.splitContainerControl1.Panel1.Controls.Add(this.gridControl1);
-            this.splitContainerControl1.Panel1.MinSize = 100;
-            this.splitContainerControl1.Panel1.ShowCaption = true;
-            this.splitContainerControl1.Panel1.Text = "Генераторы";
-            this.splitContainerControl1.Panel2.Controls.Add(this.gridControl2);
-            this.splitContainerControl1.Panel2.MinSize = 100;
-            this.splitContainerControl1.Panel2.ShowCaption = true;
-            this.splitContainerControl1.Panel2.Text = "Принтеры";
-            this.splitContainerControl1.Size = new System.Drawing.Size(371, 322);
-            this.splitContainerControl1.SplitterPosition = 141;
-            this.splitContainerControl1.TabIndex = 5;
-            // 
             // gridControl2
             // 
             this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -248,10 +234,11 @@ namespace AutoGen.App
             this.gridControl2.Name = "gridControl2";
             this.gridControl2.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit2});
-            this.gridControl2.Size = new System.Drawing.Size(367, 153);
+            this.gridControl2.Size = new System.Drawing.Size(362, 301);
             this.gridControl2.TabIndex = 5;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
+            this.gridControl2.DoubleClick += new System.EventHandler(this.gridContro_DoubleClick);
             // 
             // gridView2
             // 
@@ -329,17 +316,44 @@ namespace AutoGen.App
             this.gridColumn3.VisibleIndex = 2;
             this.gridColumn3.Width = 93;
             // 
+            // xtraTabControl1
+            // 
+            this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xtraTabControl1.Location = new System.Drawing.Point(0, 42);
+            this.xtraTabControl1.Name = "xtraTabControl1";
+            this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
+            this.xtraTabControl1.Size = new System.Drawing.Size(371, 331);
+            this.xtraTabControl1.TabIndex = 6;
+            this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.xtraTabPage1,
+            this.xtraTabPage2});
+            this.xtraTabControl1.Text = "xtraTabControl1";
+            // 
+            // xtraTabPage1
+            // 
+            this.xtraTabPage1.Controls.Add(this.gridControl1);
+            this.xtraTabPage1.Name = "xtraTabPage1";
+            this.xtraTabPage1.Size = new System.Drawing.Size(362, 301);
+            this.xtraTabPage1.Text = "Генераторы";
+            // 
+            // xtraTabPage2
+            // 
+            this.xtraTabPage2.Controls.Add(this.gridControl2);
+            this.xtraTabPage2.Name = "xtraTabPage2";
+            this.xtraTabPage2.Size = new System.Drawing.Size(362, 301);
+            this.xtraTabPage2.Text = "Принтеры";
+            // 
             // ListPL
             // 
-            this.ClientSize = new System.Drawing.Size(371, 364);
-            this.Controls.Add(this.splitContainerControl1);
+            this.ClientSize = new System.Drawing.Size(371, 373);
+            this.Controls.Add(this.xtraTabControl1);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
             this.MaximumSize = new System.Drawing.Size(400, 500);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(340, 400);
+            this.MinimumSize = new System.Drawing.Size(300, 200);
             this.Name = "ListPL";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -350,11 +364,13 @@ namespace AutoGen.App
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
-            this.splitContainerControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
+            this.xtraTabControl1.ResumeLayout(false);
+            this.xtraTabPage1.ResumeLayout(false);
+            this.xtraTabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -375,12 +391,14 @@ namespace AutoGen.App
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
-        private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1;
         private DevExpress.XtraGrid.GridControl gridControl2;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
     }
 }

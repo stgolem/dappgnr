@@ -57,6 +57,7 @@
     <Compile Include="EventDelegates.cs" />
     <Compile Include="Interfaces.cs">
     </Compile>
+    <Compile Include="Objects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +81,7 @@
     <ProjectReference Include="..\AutoGen.TeXML\AutoGen.TeXML.csproj">
       <Project>{96AC88BC-A074-499A-BCE8-37AA693F8156}</Project>
       <Name>AutoGen.TeXML</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -25,8 +25,9 @@ namespace AutoGen.App
             {
                 Items.Add(CreateMenuItem("Изменить", Properties.Resources.Edit16, "Edit", true));
                 Items.Add(CreateMenuItem("Удалить", Properties.Resources.Delete16, "Delete", true));
+                Items.Add(CreateMenuItem("Добавить в список", Properties.Resources.Add16, "ToList", true));
             }
-            Items.Add(CreateMenuItem("Новая папка", Properties.Resources.NewFolder16, "Folder", true));
+            Items.Add(CreateMenuItem("Новая папка", Properties.Resources.NewFolder16, "Folder", true, forTaskRow));
             Items.Add(CreateMenuItem("Новая задача", Properties.Resources.NewTask16, "Task", true));
         }
 
@@ -48,6 +49,9 @@ namespace AutoGen.App
                         break;
                     case "Task":
                         mListForm.AddTaskInstance();
+                        break;
+                    case "ToList":
+                        mListForm.AddSelectedToList();
                         break;
                 }
         }

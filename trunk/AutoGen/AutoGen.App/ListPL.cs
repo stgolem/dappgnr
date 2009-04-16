@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using AutoGen.I;
 using AutoGen.PL;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace AutoGen.App
 {
@@ -38,11 +36,11 @@ namespace AutoGen.App
             {
                 if (myPlugins != null && myPlugins.Length > 0)
                 {
-                    gridControl1.DataSource = myPlugins;
+                    gridControl1.DataSource = new List<IAutoGenPlugin>(myPlugins);
                 }
                 if (myPrinters != null && myPrinters.Length > 0)
                 {
-                    gridControl2.DataSource = myPrinters;
+                    gridControl2.DataSource = new List<IAutoGenPlugin>(myPrinters);
                 }
             }
         }
@@ -78,6 +76,16 @@ namespace AutoGen.App
             {
                 gridControl1.RefreshDataSource();
                 gridControl2.RefreshDataSource();
+            }
+        }
+
+        private void gridContro_DoubleClick(object sender, EventArgs e)
+        {
+            GridHitInfo hi =
+                (GridHitInfo) ((GridControl)sender).DefaultView.CalcHitInfo(((Control)sender).PointToClient(MousePosition));
+            if (hi.RowHandle >= 0)
+            {
+                ShowSelectedInfo();
             }
         }
     }

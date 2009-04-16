@@ -46,128 +46,221 @@ namespace AutoGen.I
         }
     }
 
-    public class AutoGenParameters
+    /// <summary>
+    /// Интерфейс параметров генерации
+    /// </summary>
+    public interface IAutoGenParameters
     {
-        private int _CountInVariant;
-        private int _Variants;
-        private bool _NeedAnswer;
-
-        public int CountInVariant
-        {
-            get { return _CountInVariant; }
-            set { _CountInVariant = value; }
-        }
-
-        public int Variants
-        {
-            get { return _Variants; }
-            set { _Variants = value; }
-        }
-
-        public bool NeedAnswer
-        {
-            get { return _NeedAnswer; }
-            set { _NeedAnswer = value; }
-        }
-
-        public AutoGenParameters(int countInVariant, int variants, bool needAnswer)
-        {
-            CountInVariant = countInVariant;
-            Variants = variants;
-            NeedAnswer = needAnswer;
-        }
-
-        public AutoGenParameters()
-        {
-            CountInVariant = 1;
-            Variants = 1;
-            NeedAnswer = true;
-        }
+        /// <summary>
+        /// Количество заданий в варианте
+        /// </summary>
+        int CountInVariant { get; set; }
+        /// <summary>
+        /// Количество вариантов
+        /// </summary>
+        int Variants { get; set; }
+        /// <summary>
+        /// Нужен ли ответ на задачу
+        /// </summary>
+        bool NeedAnswer { get; set; }
+        /// <summary>
+        /// Название задачи
+        /// </summary>
+        string TaskName { get; set; }
     }
-
+    /// <summary>
+    /// Интерфейс обеспечивающий чтение и запись 
+    /// текстовых данных в конфигурационный файл
+    /// </summary>
+    public interface IAutoGenDBSettings
+    {
+        /// <summary>
+        /// Сохранить данные
+        /// </summary>
+        /// <param name="set">Имя набора данных</param>
+        /// <param name="name">Название</param>
+        /// <param name="value">Данные</param>
+        void SaveValue(string set, string name, string value);
+        /// <summary>
+        /// Получить данные
+        /// </summary>
+        /// <param name="set">Имя набора данных</param>
+        /// <param name="name">Название</param>
+        /// <returns>Данные</returns>
+        string GetValue(string set, string name);
+    }
+    /// <summary>
+    /// Интерфейс главного приложения
+    /// </summary>
     public interface IAutoGenApplication
     {
-        object MainRibbonToolbar { get; }
+        /// <summary>
+        /// Предоставляет объект доступа к настройкам
+        /// </summary>
+        IAutoGenDBSettings MainDBSettings { get; }
+        /// <summary>
+        /// Главная форма программы
+        /// </summary>
+        object MainForm { get; }
+        /// <summary>
+        /// Директория приложения
+        /// </summary>
         string MainApplicationDir { get; }
+        /// <summary>
+        /// Поддиректория \ТЕХ
+        /// </summary>
         string MainTexDir { get; }
+        /// <summary>
+        /// Расположение портативной версии ТеХ
+        /// </summary>
         string MainTexPortDir { get; }
+        /// <summary>
+        /// Расположение файлов данных
+        /// </summary>
         string MainDataDir { get; }
     }
-
+    /// <summary>
+    /// Интерфейс плагина - дополнения
+    /// </summary>
     public interface IAutoGenPlugin
     {
+        /// <summary>
+        /// Версия
+        /// </summary>
         Version PluginVersion { get; }
+        /// <summary>
+        /// Автор
+        /// </summary>
         string Autor { get; }
+        /// <summary>
+        /// Короткое название
+        /// </summary>
         string PluginName { get; }
+        /// <summary>
+        /// Произвести инициализацию объекта плагина
+        /// </summary>
+        /// <param name="autoGenApp">Главное приложение</param>
         void InitPlugin(IAutoGenApplication autoGenApp);
+        /// <summary>
+        /// Отобразить информацию о плагине
+        /// </summary>
         void ShowAbout();
+        /// <summary>
+        /// Получить уникальный идентификатор плагина
+        /// </summary>
         Guid GUID { get; }
     }
-
+    /// <summary>
+    /// Интерфейс дополнения - генератора
+    /// </summary>
     public interface IAutoGenGenerator : IAutoGenPlugin
     {
+        /// <summary>
+        /// Получить новый объект Задачи
+        /// </summary>
+        /// <param name="taskName">Имя задачи</param>
+        /// <returns>Объект Задачи для редактирования</returns>
         IAutoGenTask CreateTaskInstance(string taskName);
+        /// <summary>
+        /// Дополнительные данные плагина
+        /// </summary>
         Object GeneratorData { get; set; }
     }
-
+    /// <summary>
+    /// Интерфейс экземпляра Задачи для генерации
+    /// </summary>
     public interface IAutoGenTask : ISerializable
     {
         /// <summary>
-        /// Name of the task instance
+        /// Название
         /// </summary>
         string TaskName { get; set;}
         /// <summary>
-        /// Description of the task instance
+        /// Описание
         /// </summary>
         string TaskDescription { get; set; }
         /// <summary>
-        /// Control that provide access to task
+        /// Объект элемента управления
         /// </summary>
         ITaskControl TaskPropertiesControl { get;}
         /// <summary>
-        /// Generate task inside plugin with some parameters
+        /// Произвести генерацию задачи
         /// </summary>
-        /// <param name="Parameters"></param>
-        /// <returns></returns>
-        TeXMLDoc GenerateTask(AutoGenParameters Parameters, IAutoGenWorker Worker);
+        /// <param name="Parameters">Параметры</param>
+        /// <param name="Worker">Обработчик</param>
+        /// <returns>Объект формата TeXML</returns>
+        TeXMLDocList GenerateTask(IAutoGenParameters Parameters, IAutoGenWorker Worker);
     }
-
+    /// <summary>
+    /// Интерфейс элемента управления задачей
+    /// </summary>
     public interface ITaskControl
     {
         /// <summary>
-        /// Main control to manipulate task object data
+        /// Основной элемент, управляющий данными задачи
         /// </summary>
-        Control InnerControl{ get;}
+        Control InnerControl { get; }
 
         /// <summary>
-        /// occurs before tab close
+        /// Функция вызывается перед закрытием вкладки
         /// </summary>
-        /// <param name="sender">form</param>
-        /// <param name="e">args</param>
-        /// <returns>whether to close tab</returns>
+        /// <param name="sender">Главная форма</param>
+        /// <param name="e">Аргументы</param>
         void ParentTabClosing(object sender, CancelEventArgs e);
         /// <summary>
-        /// Must occur after task object saved
+        /// Событие происходяшие в момент сохранения задачи
         /// </summary>
         event TaskChangeEventHandler TaskSaved;
         /// <summary>
-        /// Must occur on task object changed
+        /// Событие происходящие в момент изменения задачи
         /// </summary>
         event TaskChangeEventHandler TaskChanged;
     }
-
+    /// <summary>
+    /// Интерфейс модуля принтера
+    /// </summary>
     public interface IAutoGenPrinter : IAutoGenPlugin
     {
-        void Print(TeXMLDoc TeXDocument, IAutoGenWorker Worker);
+        /// <summary>
+        /// Запустить печать документа
+        /// </summary>
+        /// <param name="TeXDocumentList">Документ в формате TeXML</param>
+        /// <param name="Worker">Обработчик</param>
+        /// <param name="Parameters">Параметры</param>
+        void Print(TeXMLDocList TeXDocumentList, IAutoGenWorker Worker, IAutoGenParameters Parameters);
+        /// <summary>
+        /// Отобразить настройки модуля
+        /// </summary>
         void ShowProperties();
     }
-
+    /// <summary>
+    /// Интерфейс потокового обработчика заданий
+    /// </summary>
     public interface IAutoGenWorker
     {
+        /// <summary>
+        /// Сообщить о выполнении
+        /// </summary>
+        /// <param name="ProgressPercent">Процент выполнения</param>
+        /// <param name="ProgressCaption">Стадия выполнения</param>
         void ReportProgress(int ProgressPercent, string ProgressCaption);
-        void CancelProgress();
+        /// <summary>
+        /// Записать сообщение в лог
+        /// </summary>
+        /// <param name="line">Строка сообщения</param>
         void WriteOutputLine(string line);
+        /// <summary>
+        /// Послать сигнал отмены выполнения
+        /// </summary>
+        void CancelProgress();
+        /// <summary>
+        /// Происходит, когда кто-либо из участников
+        /// посылает сигнал отмены
+        /// </summary>
         event EventHandler CancelSend;
+        /// <summary>
+        /// Признак того, что запущена отмена
+        /// </summary>
         bool IsCanceled { get; }
     }
 }

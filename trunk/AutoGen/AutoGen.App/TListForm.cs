@@ -24,11 +24,12 @@ namespace AutoGen.App
         {
             InitializeComponent();
             myAppMainForm = mainForm;
+            gridControl1.MenuManager = myAppMainForm.AppBarManager;
         }
 
         private void FillDefaultList()
         {
-            myAppData = AutoGenData.LoadData();
+            myAppData = AutoGenData.LoadData(myAppMainForm);
             if (myAppData != null && myAppData.AutoGenTaskArray != null)
                 tList = new TaskObjectList(myAppData.AutoGenTaskArray);
         }
@@ -101,23 +102,28 @@ namespace AutoGen.App
 
             if (hi.RowHandle >= 0)
             {
-                GridObject go = GetSelectedObject();
-                if (go != null)
+                ActCurrentObject();
+            }
+        }
+
+        private void ActCurrentObject()
+        {
+            GridObject go = GetSelectedObject();
+            if (go != null)
+            {
+                if (go.IsFolder)
                 {
-                    if (go.IsFolder)
+                    if (!go.IsOpened)
                     {
-                        if (!go.IsOpened)
-                        {
-                            currentGO = go;
-                        }
-                        else
-                        {
-                            currentGO = new GridObject(GetTOByID(go.ParentID));
-                        }
-                        BindGrid(GetChildTasks(currentGO));
+                        currentGO = go;
                     }
-                    else EditCurrentObject();
+                    else
+                    {
+                        currentGO = new GridObject(GetTOByID(go.ParentID));
+                    }
+                    BindGrid(GetChildTasks(currentGO));
                 }
+                else EditCurrentObject();
             }
         }
 
@@ -128,7 +134,7 @@ namespace AutoGen.App
             if (myAppData != null)
             {
                 myAppData.AutoGenTaskArray = tList.ToArray();
-                if (!myAppData.SaveData())
+                if (!myAppData.SaveData(myAppMainForm))
                     e.Cancel = true;
             }
         }
@@ -219,12 +225,6 @@ namespace AutoGen.App
             BindGrid(GetChildTasks(currentGO));
         }
 
-        public TeXML.TeXMLDoc StartSelectedTask(IAutoGenWorker Worker)
-        {
-            TaskObject to = GetTOByID(GetSelectedObject().ID);
-            return to.Task.GenerateTask(new AutoGenParameters(), Worker);
-        }
-
         GridHitInfo hitInfo = null;
 
         private void DoShowMenu(GridHitInfo info)
@@ -257,7 +257,7 @@ namespace AutoGen.App
             {
                 if (hitInfo.InRow && hitInfo.RowHandle >= 0)
                 {
-                    gridControl1.DoDragDrop(GetTOByID(GetSelectedObject().ID), DragDropEffects.Copy);
+                    gridControl1.DoDragDrop(GetTOByID(GetSelectedObject().ID), DragDropEffects.All);
                 }
             }
         }
@@ -273,11 +273,26 @@ namespace AutoGen.App
         public void RemoveSelectedItem()
         {
             GridObject so = GetSelectedObject();
-            if (so.IsFolder && so.IsOpened)
+            if (so.IsFolder)
             {
-                XtraMessageBox.Show("Эта запись не может быть удалена. Попробуйте из родительской папки.", "Ошибка",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (so.IsOpened)
+                {
+                    XtraMessageBox.Show("Эта запись не может быть удалена. Попробуйте из родительской папки.", "Ошибка",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (XtraMessageBox.Show("Удаление папки и всего содержимого.\nВы уверены?", "Удаление", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    int[] sub = tList.GetSubTreeByID(so.ID);
+                    foreach (int sid in sub)
+                    {
+                        myAppMainForm.CloseAllTabs(sid);
+                        tList.RemoveAt(tList.GetTaskByID(sid));
+                    }
+                    myAppMainForm.CloseAllTabs(so.ID);
+                    tList.RemoveAt(tList.GetTaskByID(so.ID));
+                }
+                RefreshTree();
             }
             if (!so.IsFolder && XtraMessageBox.Show("Удаление экземпляра задачи.\nВы уверены?", "Удаление", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
@@ -287,12 +302,64 @@ namespace AutoGen.App
             }
         }
 
+        public void AddSelectedToList()
+        {
+            if (myAppMainForm.PlayList == null)
+                myAppMainForm.ShowPlayList();
+            myAppMainForm.PlayList.AddItemToList(GetTOByID(GetSelectedObject().ID));
+        }
+
         private void gridControl1_MouseUp(object sender, MouseEventArgs e)
         {
             hitInfo = gridView1.CalcHitInfo(new Point(e.X, e.Y));
             if (e.Button == MouseButtons.Right)
             {
                 DoShowMenu(hitInfo);
+            }
+        }
+
+        private void gridControl1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.Enter)
+            {
+                ActCurrentObject();
+            }
+        }
+
+        private void gridControl1_DragOver(object sender, DragEventArgs e)
+        {
+            hitInfo = gridView1.CalcHitInfo(gridControl1.PointToClient(new Point(e.X, e.Y)));
+            TaskObject go = e.Data.GetData(typeof(TaskObject)) as TaskObject;
+            e.Effect = DragDropEffects.None;
+            if(go != null && hitInfo.InRow)
+            {
+                GridObject overgo = gridView1.GetRow(hitInfo.RowHandle) as GridObject;
+                if (overgo != null && overgo.ID != go.ID && overgo.IsFolder)
+                {
+                    e.Effect = DragDropEffects.Move;
+                }
+            }
+        }
+
+        private void gridControl1_DragDrop(object sender, DragEventArgs e)
+        {
+            TaskObject to = e.Data.GetData(typeof(TaskObject)) as TaskObject;
+            hitInfo = gridView1.CalcHitInfo(gridControl1.PointToClient(new Point(e.X, e.Y)));
+            if (to != null && hitInfo.InRow)
+            {
+                GridObject overgo = gridView1.GetRow(hitInfo.RowHandle) as GridObject;
+                if (overgo != null)
+                {
+                    TaskObject overto = GetTOByID(overgo.ID);
+                    if(to.ID != overto.ID && overto.IsFolder)
+                    {
+                        if (!overgo.IsOpened)
+                            GetTOByID(to.ID).ParentID = overto.ID;
+                        else
+                            GetTOByID(to.ID).ParentID = GetTOByID(overto.ParentID).ID;
+                        RefreshTree();
+                    }
+                }
             }
         }
     }

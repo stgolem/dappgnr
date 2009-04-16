@@ -29,27 +29,28 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.Utils.SuperToolTip superToolTip20 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem20 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem20 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip16 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem16 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem16 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip25 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem25 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem25 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip21 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem21 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem21 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip22 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem22 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem22 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip23 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem23 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem23 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip24 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem24 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem24 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip6 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem6 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem6 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip7 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem7 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem7 = new DevExpress.Utils.ToolTipItem();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayList));
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
@@ -152,12 +153,12 @@
             this.barButtonItem1.GlyphDisabled = global::AutoGen.App.Properties.Resources.Start;
             this.barButtonItem1.Id = 0;
             this.barButtonItem1.Name = "barButtonItem1";
-            toolTipTitleItem20.Text = "Запуск";
-            toolTipItem20.LeftIndent = 6;
-            toolTipItem20.Text = "Начать генерацию текущего листа";
-            superToolTip20.Items.Add(toolTipTitleItem20);
-            superToolTip20.Items.Add(toolTipItem20);
-            this.barButtonItem1.SuperTip = superToolTip20;
+            toolTipTitleItem1.Text = "Запуск";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Начать генерацию текущего листа";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.barButtonItem1.SuperTip = superToolTip1;
             this.barButtonItem1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
             // 
             // barButtonItem4
@@ -167,12 +168,12 @@
             this.barButtonItem4.GlyphDisabled = global::AutoGen.App.Properties.Resources.SaveList;
             this.barButtonItem4.Id = 5;
             this.barButtonItem4.Name = "barButtonItem4";
-            toolTipTitleItem16.Text = "Сохранить лист";
-            toolTipItem16.LeftIndent = 6;
-            toolTipItem16.Text = "Сохранить лист генерации в файл.";
-            superToolTip16.Items.Add(toolTipTitleItem16);
-            superToolTip16.Items.Add(toolTipItem16);
-            this.barButtonItem4.SuperTip = superToolTip16;
+            toolTipTitleItem2.Text = "Сохранить лист";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Сохранить лист генерации в файл.";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.barButtonItem4.SuperTip = superToolTip2;
             this.barButtonItem4.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem4_ItemClick);
             // 
             // barButtonItem5
@@ -182,12 +183,12 @@
             this.barButtonItem5.GlyphDisabled = global::AutoGen.App.Properties.Resources.OpenList;
             this.barButtonItem5.Id = 12;
             this.barButtonItem5.Name = "barButtonItem5";
-            toolTipTitleItem25.Text = "Открыть";
-            toolTipItem25.LeftIndent = 6;
-            toolTipItem25.Text = "Открыть сохраненный файл листа генерации";
-            superToolTip25.Items.Add(toolTipTitleItem25);
-            superToolTip25.Items.Add(toolTipItem25);
-            this.barButtonItem5.SuperTip = superToolTip25;
+            toolTipTitleItem3.Text = "Открыть";
+            toolTipItem3.LeftIndent = 6;
+            toolTipItem3.Text = "Открыть сохраненный файл листа генерации";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem3);
+            this.barButtonItem5.SuperTip = superToolTip3;
             this.barButtonItem5.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem5_ItemClick);
             // 
             // barButtonItem2
@@ -196,12 +197,12 @@
             this.barButtonItem2.Glyph = global::AutoGen.App.Properties.Resources.Delete;
             this.barButtonItem2.Id = 1;
             this.barButtonItem2.Name = "barButtonItem2";
-            toolTipTitleItem21.Text = "Удалить";
-            toolTipItem21.LeftIndent = 6;
-            toolTipItem21.Text = "Удалить выбранную запись из списка";
-            superToolTip21.Items.Add(toolTipTitleItem21);
-            superToolTip21.Items.Add(toolTipItem21);
-            this.barButtonItem2.SuperTip = superToolTip21;
+            toolTipTitleItem4.Text = "Удалить";
+            toolTipItem4.LeftIndent = 6;
+            toolTipItem4.Text = "Удалить выбранную запись из списка";
+            superToolTip4.Items.Add(toolTipTitleItem4);
+            superToolTip4.Items.Add(toolTipItem4);
+            this.barButtonItem2.SuperTip = superToolTip4;
             this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick);
             // 
             // bar1
@@ -228,12 +229,12 @@
             this.barProgress.Edit = this.repositoryItemMarqueeProgressBar1;
             this.barProgress.Id = 3;
             this.barProgress.Name = "barProgress";
-            toolTipTitleItem22.Text = "Идет генерация";
-            toolTipItem22.LeftIndent = 6;
-            toolTipItem22.Text = "Подождте, идет генерация листа";
-            superToolTip22.Items.Add(toolTipTitleItem22);
-            superToolTip22.Items.Add(toolTipItem22);
-            this.barProgress.SuperTip = superToolTip22;
+            toolTipTitleItem5.Text = "Идет генерация";
+            toolTipItem5.LeftIndent = 6;
+            toolTipItem5.Text = "Подождте, идет генерация листа";
+            superToolTip5.Items.Add(toolTipTitleItem5);
+            superToolTip5.Items.Add(toolTipItem5);
+            this.barProgress.SuperTip = superToolTip5;
             this.barProgress.Width = 100;
             // 
             // repositoryItemMarqueeProgressBar1
@@ -258,12 +259,12 @@
             this.barButtonHide.Id = 6;
             this.barButtonHide.Name = "barButtonHide";
             this.barButtonHide.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            toolTipTitleItem23.Text = "Скрыть список";
-            toolTipItem23.LeftIndent = 6;
-            toolTipItem23.Text = "Скрыть список на время генерации.";
-            superToolTip23.Items.Add(toolTipTitleItem23);
-            superToolTip23.Items.Add(toolTipItem23);
-            this.barButtonHide.SuperTip = superToolTip23;
+            toolTipTitleItem6.Text = "Скрыть список";
+            toolTipItem6.LeftIndent = 6;
+            toolTipItem6.Text = "Скрыть список на время генерации.";
+            superToolTip6.Items.Add(toolTipTitleItem6);
+            superToolTip6.Items.Add(toolTipItem6);
+            this.barButtonHide.SuperTip = superToolTip6;
             this.barButtonHide.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonHide_ItemClick);
             // 
             // barButtonItem3
@@ -275,13 +276,13 @@
             this.barButtonItem3.Id = 11;
             this.barButtonItem3.Name = "barButtonItem3";
             this.barButtonItem3.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            toolTipTitleItem24.Text = "Прервать генерацию";
-            toolTipItem24.LeftIndent = 6;
-            toolTipItem24.Text = "Позволяет прервать процесс генерации задач. В этом случае может быть потеряна час" +
+            toolTipTitleItem7.Text = "Прервать генерацию";
+            toolTipItem7.LeftIndent = 6;
+            toolTipItem7.Text = "Позволяет прервать процесс генерации задач. В этом случае может быть потеряна час" +
                 "ть информации.";
-            superToolTip24.Items.Add(toolTipTitleItem24);
-            superToolTip24.Items.Add(toolTipItem24);
-            this.barButtonItem3.SuperTip = superToolTip24;
+            superToolTip7.Items.Add(toolTipTitleItem7);
+            superToolTip7.Items.Add(toolTipItem7);
+            this.barButtonItem3.SuperTip = superToolTip7;
             this.barButtonItem3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem3_ItemClick);
             // 
             // dockManager1
@@ -300,7 +301,7 @@
             this.outputDockPanel.Controls.Add(this.outputDockContainer);
             this.outputDockPanel.Dock = DevExpress.XtraBars.Docking.DockingStyle.Bottom;
             this.outputDockPanel.ID = new System.Guid("6b2e5d52-72e1-4d8d-9896-9b5778a0324e");
-            this.outputDockPanel.Location = new System.Drawing.Point(0, 273);
+            this.outputDockPanel.Location = new System.Drawing.Point(0, 231);
             this.outputDockPanel.Name = "outputDockPanel";
             this.outputDockPanel.Options.AllowDockFill = false;
             this.outputDockPanel.Options.AllowDockLeft = false;
@@ -309,7 +310,7 @@
             this.outputDockPanel.Options.AllowFloating = false;
             this.outputDockPanel.Options.FloatOnDblClick = false;
             this.outputDockPanel.Options.ShowMaximizeButton = false;
-            this.outputDockPanel.Size = new System.Drawing.Size(638, 123);
+            this.outputDockPanel.Size = new System.Drawing.Size(638, 165);
             this.outputDockPanel.TabText = "Поток";
             this.outputDockPanel.Text = "Сообщения";
             // 
@@ -318,7 +319,7 @@
             this.outputDockContainer.Controls.Add(this.outputMemoEdit);
             this.outputDockContainer.Location = new System.Drawing.Point(3, 25);
             this.outputDockContainer.Name = "outputDockContainer";
-            this.outputDockContainer.Size = new System.Drawing.Size(632, 95);
+            this.outputDockContainer.Size = new System.Drawing.Size(632, 137);
             this.outputDockContainer.TabIndex = 0;
             // 
             // outputMemoEdit
@@ -332,7 +333,7 @@
             this.outputMemoEdit.Properties.ReadOnly = true;
             this.outputMemoEdit.Properties.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.outputMemoEdit.Properties.WordWrap = false;
-            this.outputMemoEdit.Size = new System.Drawing.Size(632, 95);
+            this.outputMemoEdit.Size = new System.Drawing.Size(632, 137);
             this.outputMemoEdit.TabIndex = 0;
             this.outputMemoEdit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.outputMemoEdit_KeyPress);
             // 
@@ -364,7 +365,7 @@
             this.printerComboSelect,
             this.repositoryItemCalcEdit1,
             this.repositoryItemCheckEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(638, 231);
+            this.gridControl1.Size = new System.Drawing.Size(638, 189);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -536,11 +537,9 @@
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
-            this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(600, 400);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "PlayList";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.Text = "Быстрая генерация";
             this.Deactivate += new System.EventHandler(this.PlayList_Deactivate);
             this.Load += new System.EventHandler(this.PlayList_Load);

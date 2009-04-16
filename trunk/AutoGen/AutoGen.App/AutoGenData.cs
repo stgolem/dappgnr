@@ -14,7 +14,7 @@ namespace AutoGen.App
         private TaskObject[] autoGenTaskArray = null;
         private int indexGenerator = 1;
         private AutoGenPlayList lastPlayList = null;
-        private AutoGenProperties mainProperties = null;
+        [NonSerialized] private AutoGenProperties mainProperties = null;
         private AutogenCustomData customData = null;
 
         public TaskObject[] AutoGenTaskArray
@@ -46,7 +46,7 @@ namespace AutoGen.App
             set { customData = value; }
         }
 
-        public bool SaveData()
+        public bool SaveData(Main main)
         {
             bool res;
             if (!Directory.Exists(AutoGenBase.AppSaveDataPath))
@@ -69,16 +69,18 @@ namespace AutoGen.App
             {
                 fs.Close();
             }
+            if (MainProperties != null)
+                MainProperties.Save(main.MainDBSettings);
             return res;
         }
 
-        public static AutoGenData LoadData()
+        public static AutoGenData LoadData(Main main)
         {
             AutoGenData agd = null;
             if(!File.Exists(AutoGenBase.AppSaveDataPath + AutoGenBase.SaveFile))
             {
                 agd = new AutoGenData();
-                agd.SaveData();
+                agd.SaveData(main);
                 return agd;
             }
 
@@ -92,6 +94,10 @@ namespace AutoGen.App
                 }
                 byte[] buff = lBuff.ToArray();
                 agd = ObjectFormatter.GetObject(buff) as AutoGenData;
+                if (agd != null)
+                {
+                    agd.MainProperties = AutoGenProperties.Load(main.MainDBSettings);
+                }
             } catch (Exception ex)
             {
                 agd = null;
@@ -107,18 +113,47 @@ namespace AutoGen.App
     [Serializable]
     public class AutoGenProperties
     {
-        private IAutoGenPrinter defaultPrinter = null;
+        private Guid defaultPrinter = Guid.Empty;
+        private bool needUseTex = true;
 
-        public IAutoGenPrinter DefaultPrinter
+        public Guid DefaultPrinterGuid
         {
             get { return defaultPrinter; }
             set { defaultPrinter = value; }
         }
 
+        public bool NeedUseTex
+        {
+            get { return needUseTex; }
+            set { needUseTex = value; }
+        }
+
         public AutoGenProperties(Main main)
         {
             if (main.MyLoadedPrinters != null && main.MyLoadedPrinters.Length > 0)
-                defaultPrinter = (IAutoGenPrinter) main.MyLoadedPrinters[0];
+                defaultPrinter = main.MyLoadedPrinters[0].GUID;
+        }
+
+        public AutoGenProperties(Guid defaultPrinter)
+        {
+            this.defaultPrinter = defaultPrinter;
+        }
+
+        public void Save(IAutoGenDBSettings db)
+        {
+            db.SaveValue("AutoGenProperties", "DefaultPrinter", DefaultPrinterGuid.ToString());
+            db.SaveValue("AutoGenProperties", "NeedUseTex", NeedUseTex.ToString());
+        }
+
+        public static AutoGenProperties Load(IAutoGenDBSettings db)
+        {
+            Guid g = Guid.Empty;
+            if (!string.IsNullOrEmpty(db.GetValue("AutoGenProperties", "DefaultPrinter")))
+                g = new Guid(db.GetValue("AutoGenProperties", "DefaultPrinter"));
+            AutoGenProperties agp = new AutoGenProperties(g);
+            if (!string.IsNullOrEmpty(db.GetValue("AutoGenProperties", "NeedUseTex")))
+                agp.NeedUseTex = bool.Parse(db.GetValue("AutoGenProperties", "NeedUseTex"));
+            return agp;
         }
     }
 

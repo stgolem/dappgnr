@@ -11,9 +11,9 @@ namespace AutoGen.App
     {
         private TaskObject _TaskObject = null;
         private IAutoGenPrinter _Printer = null;
-        private int _Count = 0;
+        private int _Count = 1;
         private bool _NeedGenerate = true;
-        private int _Variants = 0;
+        private int _Variants = 1;
 
         public AutoGenPlayListItem(TaskObject _TaskObject, IAutoGenPrinter _Printer)
         {

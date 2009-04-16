@@ -23,6 +23,27 @@ namespace AutoGen.TeXML
         Math
     }
 
+    public class TeXMLDocList : List<TeXMLDoc>
+    {
+        public TeXMLDocList(IEnumerable<TeXMLDoc> collection) : base(collection)
+        {
+        }
+
+        public TeXMLDocList(int capacity) : base(capacity)
+        {
+        }
+
+        public TeXMLDocList()
+        {
+        }
+
+        public new TeXMLDocList Add(TeXMLDoc doc)
+        {
+            base.Add(doc);
+            return this;
+        }
+    }
+
     public class TeXElementCollection : List<TeXElement>
     {
         private readonly TeXElement _Parent;
@@ -271,6 +292,13 @@ namespace AutoGen.TeXML
 
         public TeXMLDoc()
         {
+            root = new TeXRoot("Root", this);
+            root.Attributes.Add("xmlns", "http://getfo.sourceforge.net/texml/ns1");
+        }
+
+        public TeXMLDoc(string name)
+        {
+            _TagName = name;
             root = new TeXRoot("Root", this);
             root.Attributes.Add("xmlns", "http://getfo.sourceforge.net/texml/ns1");
         }

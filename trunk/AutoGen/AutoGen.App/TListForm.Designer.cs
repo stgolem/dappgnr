@@ -34,6 +34,8 @@ namespace AutoGen.App
             this.repositoryItemPictureEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
             this.nameColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.plugNameColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.plugVersionColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).BeginInit();
@@ -42,6 +44,7 @@ namespace AutoGen.App
             // 
             // gridControl1
             // 
+            this.gridControl1.AllowDrop = true;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.FormsUseDefaultLookAndFeel = false;
@@ -55,15 +58,20 @@ namespace AutoGen.App
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
+            this.gridControl1.DragOver += new System.Windows.Forms.DragEventHandler(this.gridControl1_DragOver);
             this.gridControl1.DoubleClick += new System.EventHandler(this.gridControl1_DoubleClick);
             this.gridControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gridControl1_MouseUp);
+            this.gridControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.gridControl1_DragDrop);
             this.gridControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridControl1_MouseMove);
+            this.gridControl1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.gridControl1_KeyPress);
             // 
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.imgColumn,
-            this.nameColumn});
+            this.nameColumn,
+            this.plugNameColumn,
+            this.plugVersionColumn});
             this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
@@ -129,11 +137,56 @@ namespace AutoGen.App
             this.nameColumn.ToolTip = "Название задачи";
             this.nameColumn.Visible = true;
             this.nameColumn.VisibleIndex = 1;
+            this.nameColumn.Width = 367;
             // 
             // repositoryItemTextEdit1
             // 
             this.repositoryItemTextEdit1.AllowFocused = false;
             this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
+            // 
+            // plugNameColumn
+            // 
+            this.plugNameColumn.Caption = "Плагин";
+            this.plugNameColumn.ColumnEdit = this.repositoryItemTextEdit1;
+            this.plugNameColumn.FieldName = "PluginName";
+            this.plugNameColumn.Name = "plugNameColumn";
+            this.plugNameColumn.OptionsColumn.AllowEdit = false;
+            this.plugNameColumn.OptionsColumn.AllowFocus = false;
+            this.plugNameColumn.OptionsColumn.AllowIncrementalSearch = false;
+            this.plugNameColumn.OptionsColumn.AllowMove = false;
+            this.plugNameColumn.OptionsColumn.AllowSize = false;
+            this.plugNameColumn.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.plugNameColumn.OptionsColumn.ReadOnly = true;
+            this.plugNameColumn.OptionsColumn.ShowInCustomizationForm = false;
+            this.plugNameColumn.OptionsFilter.AllowAutoFilter = false;
+            this.plugNameColumn.OptionsFilter.AllowFilter = false;
+            this.plugNameColumn.OptionsFilter.ImmediateUpdateAutoFilter = false;
+            this.plugNameColumn.ToolTip = "Название плагина";
+            this.plugNameColumn.Visible = true;
+            this.plugNameColumn.VisibleIndex = 2;
+            this.plugNameColumn.Width = 100;
+            // 
+            // plugVersionColumn
+            // 
+            this.plugVersionColumn.Caption = "Версия";
+            this.plugVersionColumn.ColumnEdit = this.repositoryItemTextEdit1;
+            this.plugVersionColumn.FieldName = "PluginVersion";
+            this.plugVersionColumn.Name = "plugVersionColumn";
+            this.plugVersionColumn.OptionsColumn.AllowEdit = false;
+            this.plugVersionColumn.OptionsColumn.AllowFocus = false;
+            this.plugVersionColumn.OptionsColumn.AllowIncrementalSearch = false;
+            this.plugVersionColumn.OptionsColumn.AllowMove = false;
+            this.plugVersionColumn.OptionsColumn.AllowSize = false;
+            this.plugVersionColumn.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.plugVersionColumn.OptionsColumn.ReadOnly = true;
+            this.plugVersionColumn.OptionsColumn.ShowInCustomizationForm = false;
+            this.plugVersionColumn.OptionsFilter.AllowAutoFilter = false;
+            this.plugVersionColumn.OptionsFilter.AllowFilter = false;
+            this.plugVersionColumn.OptionsFilter.ImmediateUpdateAutoFilter = false;
+            this.plugVersionColumn.ToolTip = "Версия плагина";
+            this.plugVersionColumn.Visible = true;
+            this.plugVersionColumn.VisibleIndex = 3;
+            this.plugVersionColumn.Width = 100;
             // 
             // TListForm
             // 
@@ -161,5 +214,7 @@ namespace AutoGen.App
         private DevExpress.XtraGrid.Columns.GridColumn nameColumn;
         protected DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit repositoryItemPictureEdit1;
         protected DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
+        private DevExpress.XtraGrid.Columns.GridColumn plugNameColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn plugVersionColumn;
     }
 }

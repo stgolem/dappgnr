@@ -65,6 +65,9 @@ namespace AutoGen.App
             DevExpress.Utils.SuperToolTip superToolTip11 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem12 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem11 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip12 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem13 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem12 = new DevExpress.Utils.ToolTipItem();
             this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.appMainLook = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.appMainRibbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -74,7 +77,6 @@ namespace AutoGen.App
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.bbPluginList = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
             this.appMainRigthMenu = new DevExpress.XtraBars.PopupControlContainer(this.components);
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
@@ -91,12 +93,18 @@ namespace AutoGen.App
             this.repositoryItemMarqueeProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemMarqueeProgressBar();
             this.barStaticTextItem = new DevExpress.XtraBars.BarStaticItem();
             this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.appMainStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.appMainTabManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
             this.defaultBarAndDockingController1 = new DevExpress.XtraBars.DefaultBarAndDockingController(this.components);
+            this.appBarManager = new DevExpress.XtraBars.BarManager(this.components);
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMainMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupControlContainer1)).BeginInit();
@@ -109,6 +117,7 @@ namespace AutoGen.App
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMarqueeProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMainTabManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.defaultBarAndDockingController1.Controller)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.appBarManager)).BeginInit();
             this.SuspendLayout();
             // 
             // barAndDockingController1
@@ -159,7 +168,6 @@ namespace AutoGen.App
             this.appMainMenu.BottomPaneControlContainer = this.popupControlContainer1;
             this.appMainMenu.ItemLinks.Add(this.bbPluginList);
             this.appMainMenu.ItemLinks.Add(this.barButtonItem6);
-            this.appMainMenu.ItemLinks.Add(this.barButtonItem8, true);
             this.appMainMenu.Name = "appMainMenu";
             this.appMainMenu.Ribbon = this.appMainRibbon;
             this.appMainMenu.RightPaneControlContainer = this.appMainRigthMenu;
@@ -217,13 +225,6 @@ namespace AutoGen.App
             superToolTip2.Items.Add(toolTipItem2);
             this.barButtonItem6.SuperTip = superToolTip2;
             this.barButtonItem6.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem6_ItemClick);
-            // 
-            // barButtonItem8
-            // 
-            resources.ApplyResources(this.barButtonItem8, "barButtonItem8");
-            this.barButtonItem8.Id = 14;
-            this.barButtonItem8.Name = "barButtonItem8";
-            this.barButtonItem8.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem8_ItemClick);
             // 
             // appMainRigthMenu
             // 
@@ -428,6 +429,21 @@ namespace AutoGen.App
             this.barButtonItem7.SuperTip = superToolTip11;
             this.barButtonItem7.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem7_ItemClick);
             // 
+            // barButtonItem8
+            // 
+            resources.ApplyResources(this.barButtonItem8, "barButtonItem8");
+            this.barButtonItem8.Id = 14;
+            this.barButtonItem8.LargeGlyph = global::AutoGen.App.Properties.Resources.Settings;
+            this.barButtonItem8.LargeGlyphDisabled = global::AutoGen.App.Properties.Resources.Settings;
+            this.barButtonItem8.Name = "barButtonItem8";
+            resources.ApplyResources(toolTipTitleItem13, "toolTipTitleItem13");
+            toolTipItem12.LeftIndent = 6;
+            resources.ApplyResources(toolTipItem12, "toolTipItem12");
+            superToolTip12.Items.Add(toolTipTitleItem13);
+            superToolTip12.Items.Add(toolTipItem12);
+            this.barButtonItem8.SuperTip = superToolTip12;
+            this.barButtonItem8.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem8_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -441,6 +457,7 @@ namespace AutoGen.App
             // 
             this.ribbonPageGroup1.AllowMinimize = false;
             this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem7);
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem8);
             this.ribbonPageGroup1.KeyTip = "";
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.ShowCaptionButton = false;
@@ -474,10 +491,21 @@ namespace AutoGen.App
             this.appMainTabManager.Controller = this.barAndDockingController1;
             this.appMainTabManager.MdiParent = this;
             this.appMainTabManager.ShowToolTips = DevExpress.Utils.DefaultBoolean.True;
+            this.appMainTabManager.SelectedPageChanged += new System.EventHandler(this.appMainTabManager_SelectedPageChanged);
             this.appMainTabManager.MouseDown += new System.Windows.Forms.MouseEventHandler(this.appMainTabManager_MouseDown);
             // 
             // defaultBarAndDockingController1
             // 
+            // 
+            // appBarManager
+            // 
+            this.appBarManager.Controller = this.barAndDockingController1;
+            this.appBarManager.DockControls.Add(this.barDockControlTop);
+            this.appBarManager.DockControls.Add(this.barDockControlBottom);
+            this.appBarManager.DockControls.Add(this.barDockControlLeft);
+            this.appBarManager.DockControls.Add(this.barDockControlRight);
+            this.appBarManager.Form = this;
+            this.appBarManager.MaxItemId = 0;
             // 
             // Main
             // 
@@ -486,6 +514,10 @@ namespace AutoGen.App
             this.Controls.Add(this.appMainRigthMenu);
             this.Controls.Add(this.appMainStatusBar);
             this.Controls.Add(this.appMainRibbon);
+            this.Controls.Add(this.barDockControlLeft);
+            this.Controls.Add(this.barDockControlRight);
+            this.Controls.Add(this.barDockControlBottom);
+            this.Controls.Add(this.barDockControlTop);
             this.IsMdiContainer = true;
             this.Name = "Main";
             this.Ribbon = this.appMainRibbon;
@@ -504,6 +536,7 @@ namespace AutoGen.App
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMarqueeProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMainTabManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.defaultBarAndDockingController1.Controller)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.appBarManager)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -542,6 +575,11 @@ namespace AutoGen.App
         private DevExpress.XtraBars.BarButtonItem barButtonItem8;
         private DevExpress.XtraBars.DefaultBarAndDockingController defaultBarAndDockingController1;
         private DevExpress.XtraBars.BarAndDockingController barAndDockingController1;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlTop;
+        private DevExpress.XtraBars.BarManager appBarManager;
 
     }
 }

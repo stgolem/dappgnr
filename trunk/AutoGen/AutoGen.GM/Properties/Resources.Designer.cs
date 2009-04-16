@@ -59,5 +59,19 @@ namespace AutoGen.GM.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Bitmap AboutLogo {
+            get {
+                object obj = ResourceManager.GetObject("AboutLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Delete16 {
+            get {
+                object obj = ResourceManager.GetObject("Delete16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

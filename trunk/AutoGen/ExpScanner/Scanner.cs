@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
+using System.Globalization;
 
 namespace ExpScanner
 {
@@ -149,7 +150,7 @@ namespace ExpScanner
   {
     #region Alphabet
     //Разделитель десятичных дробей
-    private char decDelimit = ',';
+    private char decDelimit = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
     //Массивы опрераторов и символов
     private static String[] iNumbers = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
     private static String[] iAddOpers = { @"+", @"-" };
@@ -396,6 +397,7 @@ namespace ExpScanner
       return resultValue;
       //...
     }
+
     #endregion
 
     #region SupportFuncs
@@ -431,7 +433,7 @@ namespace ExpScanner
     /// </summary>
     /// <param name="b">Тип Scanner</param>
     /// <returns><typeparamref name="Double"/></returns>
-    public Double GetValue(ref Scanner b)
+    public Double GetValue(Scanner b)
     {
       b.MoveNext();
       // вычисляем выражение, находящееся в сканере
