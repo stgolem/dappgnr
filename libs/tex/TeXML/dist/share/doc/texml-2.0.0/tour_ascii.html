@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>ASCII output</title>
+<meta name="keywords" content="texml,example,encoding,ascii,cjk,tex,latex">
+<meta name="description" content="Improving interchangeability of non-latin TeX documents by writing them using only ASCII letters.">
+<link rel="stylesheet" type="text/css" href="texml.css">
+</head>
+<body>
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" align="right"></a><div style="width:150;float:right;font-size:66%;">Previous step: &#8220;<a href="tour_encoding.html">Encodings</a>&#8221;</div>
+    <a name="id2245658"></a><h1>ASCII output</h1>
+    
+    
+    <p>The following LaTeX document contains &#8220;Hello, World!&#8221; written in Chinese:</p>
+    <pre><span xml:base="code/tour_ascii.tex.xml"><span class="synStatement">\documentclass</span><span class="synSpecial">{</span><span class="synPreProc">article</span><span class="synSpecial">}</span>
+<span class="synStatement">\usepackage</span><span class="synSpecial">[</span><span class="synConstant">encapsulated</span><span class="synSpecial">]{CJK}</span>
+<span class="synStatement">\usepackage</span><span class="synSpecial">{ucs}</span>
+<span class="synStatement">\usepackage</span><span class="synSpecial">[</span><span class="synConstant">utf8x</span><span class="synSpecial">]{inputenc}</span>
+<span class="synPreProc">\begin{document}</span>
+<span class="synStatement">\begin</span><span class="synSpecial">{</span><span class="synPreProc">CJK</span><span class="synSpecial">}{</span>UTF8<span class="synSpecial">}{</span>cyberbit<span class="synSpecial">}</span>
+<em>&#19990;&#30028;&#65292;&#20320;&#22909;&#65281;</em>
+<span class="synStatement">\end</span><span class="synSpecial">{</span><span class="synPreProc">CJK</span><span class="synSpecial">}</span>
+<span class="synPreProc">\end{document}</span>
+</span></pre>
+    <p>LaTeX successfully compiles this document. But imagine:</p>
+    <ul>
+      <li>you've got a problem with a CJK or other non-latin document,</li>
+      <li>latin documents don't have this problem, so</li>
+      <li>you want to ask for help.</li>
+    </ul>
+    <p>To get help, you should provide a minimal example to reproduce the problem. Unfortunately, in most cases, your non-ASCII example will be corrupted.</p>
+    <p>Luckily, TeX provides ASCII sequences to encode non-ASCII bytes. With the command line flag <tt>--ascii</tt> (or <tt>-a</tt>), the TeXML processor uses ASCII sequences. For example, the same LaTeX document is written in the following way:</p>
+    <pre><span xml:base="code/tour_ascii.out.xml"><span class="synStatement">\documentclass</span><span class="synSpecial">{</span><span class="synPreProc">article</span><span class="synSpecial">}</span>
+<span class="synStatement">\usepackage</span><span class="synSpecial">[</span><span class="synConstant">encapsulated</span><span class="synSpecial">]{CJK}</span>
+<span class="synStatement">\usepackage</span><span class="synSpecial">{ucs}</span>
+<span class="synStatement">\usepackage</span><span class="synSpecial">[</span><span class="synConstant">utf8x</span><span class="synSpecial">]{inputenc}</span>
+<span class="synPreProc">\begin{document}</span>
+<span class="synStatement">\begin</span><span class="synSpecial">{</span><span class="synPreProc">CJK</span><span class="synSpecial">}{</span>UTF8<span class="synSpecial">}{</span>cyberbit<span class="synSpecial">}</span>
+<span class="synSpecial"><em>^^e4^^b8^^96^^e7^^95^^8c^^ef^^bc^^8c^^e4^^bd^^a0^^e5^^a5^^bd^^ef^^bc^^81</em></span>
+<span class="synStatement">\end</span><span class="synSpecial">{</span><span class="synPreProc">CJK</span><span class="synSpecial">}</span>
+<span class="synPreProc">\end{document}</span>
+</span></pre>
+  <hr>
+<div class="footnote">
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" vspace="10"></a><br>This page: <a href="http://getfo.org/texml/tour_ascii.html">http://getfo.org/texml/tour_ascii.html</a><br>
+</div>
+</body>
+</html>

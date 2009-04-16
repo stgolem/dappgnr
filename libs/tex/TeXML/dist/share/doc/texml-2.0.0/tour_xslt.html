@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>TeXML and XSLT</title>
+<meta name="keywords" content="tex,xslt,texml,example">
+<meta name="description" content="An example of an XSLT program for converting an XML document to LaTeX.">
+<link rel="stylesheet" type="text/css" href="texml.css">
+</head>
+<body>
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" align="right"></a><div style="width:150;float:right;font-size:66%;">Previous step: &#8220;<a href="tour_pdf.html">PDF literal strings</a>&#8221;</div>
+    <a name="id2245518"></a><h1>TeXML and XSLT</h1>
+    
+    
+    <p>TeXML code is too verbose and sometimes redundant to be authored manually. For example, on the previous step, the TeXML code contains the same string 3 times.</p>
+    <p>Actually, it's not a problem. TeXML is not intended to be created manually. Instead, TeXML is to be generated, preferrably by XSLT from XML.</p>
+    <p>Let's generate the TeXML code similar to that on the previous step. The source XML:</p>
+    <pre><span xml:base="code/tour_xslt.xml.xml"><span class="synIdentifier">&lt;document&gt;</span>
+  <span class="synIdentifier">&lt;section&gt;</span>
+    <span class="synIdentifier">&lt;title&gt;</span>&#1047;&#1072;&#1075;&#1086;&#1083;&#1086;&#1074;&#1086;&#1082; (Title)<span class="synIdentifier">&lt;/title&gt;</span>
+    <span class="synIdentifier">&lt;para&gt;</span>first paragraph<span class="synIdentifier">&lt;/para&gt;</span>
+    <span class="synIdentifier">&lt;para&gt;</span>second paragraph<span class="synIdentifier">&lt;/para&gt;</span>
+    ... more paragraphs ...
+  <span class="synIdentifier">&lt;/section&gt;</span>
+  ... more sections ...
+<span class="synIdentifier">&lt;/document&gt;</span>
+</span></pre>
+    <p>An XSLT program to convert such XML documents:</p>
+    <pre><span xml:base="code/tour_xslt.xsl.xml"><span class="synIdentifier">&lt;</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">stylesheet</span><span class="synIdentifier"> </span><span class="synType">version</span>=<span class="synConstant">"1.0"</span><span class="synIdentifier"> </span><span class="synType">xmlns</span><span class="synComment">:</span><span class="synType">xsl</span>=<span class="synConstant">"http://www.w3.org/1999/XSL/Transform"</span><span class="synIdentifier">&gt;</span>
+
+<span class="synComment">&lt;!-- convert "document": create header and continue --&gt;</span>
+<span class="synIdentifier">&lt;</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">template</span><span class="synIdentifier"> </span><span class="synType">match</span>=<span class="synConstant">"document"</span><span class="synIdentifier">&gt;</span>
+  <span class="synIdentifier">&lt;TeXML&gt;</span>
+    <span class="synComment">&lt;!-- create header --&gt;</span>
+    <span class="synIdentifier">&lt;TeXML </span><span class="synType">escape</span>=<span class="synConstant">"0"</span><span class="synIdentifier">&gt;</span>
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage[koi8-r]{inputenc}
+\usepackage[unicode]{hyperref}
+    <span class="synIdentifier">&lt;/TeXML&gt;</span>
+    <span class="synComment">&lt;!-- process content --&gt;</span>
+    <span class="synIdentifier">&lt;env </span><span class="synType">name</span>=<span class="synConstant">"document"</span><span class="synIdentifier">&gt;</span>
+      <span class="synIdentifier">&lt;</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">apply-templates</span><span class="synIdentifier">/&gt;</span>
+    <span class="synIdentifier">&lt;/env&gt;</span>
+  <span class="synIdentifier">&lt;/TeXML&gt;</span>
+<span class="synIdentifier">&lt;/</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">template</span><span class="synIdentifier">&gt;</span>
+
+<span class="synComment">&lt;!-- convert "para": process content and add "\par" --&gt;</span>
+<span class="synIdentifier">&lt;</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">template</span><span class="synIdentifier"> </span><span class="synType">match</span>=<span class="synConstant">"para"</span><span class="synIdentifier">&gt;</span>
+  <span class="synIdentifier">&lt;</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">apply-templates</span><span class="synIdentifier"> /&gt;</span>
+  <span class="synIdentifier">&lt;cmd </span><span class="synType">name</span>=<span class="synConstant">"par"</span><span class="synIdentifier"> </span><span class="synType">gr</span>=<span class="synConstant">"0"</span><span class="synIdentifier"> </span><span class="synType">nl2</span>=<span class="synConstant">"1"</span><span class="synIdentifier"> /&gt;</span>
+<span class="synIdentifier">&lt;/</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">template</span><span class="synIdentifier">&gt;</span>
+
+<span class="synComment">&lt;!-- convert sections by converting "title" --&gt;</span>
+<span class="synIdentifier">&lt;</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">template</span><span class="synIdentifier"> </span><span class="synType">match</span>=<span class="synConstant">"title"</span><span class="synIdentifier">&gt;</span>
+  <span class="synIdentifier">&lt;cmd </span><span class="synType">name</span>=<span class="synConstant">"section"</span><span class="synIdentifier">&gt;</span>
+    <span class="synIdentifier">&lt;opt&gt;</span>
+      <span class="synIdentifier">&lt;cmd </span><span class="synType">name</span>=<span class="synConstant">"texorpdfstring"</span><span class="synIdentifier">&gt;</span>
+        <span class="synIdentifier">&lt;parm&gt;&lt;</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">value-of</span><span class="synIdentifier"> </span><span class="synType">select</span>=<span class="synConstant">"."</span><span class="synIdentifier">/&gt;&lt;/parm&gt;</span>
+        <span class="synIdentifier">&lt;parm&gt;&lt;pdf&gt;&lt;</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">value-of</span><span class="synIdentifier"> </span><span class="synType">select</span>=<span class="synConstant">"."</span><span class="synIdentifier">/&gt;&lt;/pdf&gt;&lt;/parm&gt;</span>
+      <span class="synIdentifier">&lt;/cmd&gt;</span>
+    <span class="synIdentifier">&lt;/opt&gt;</span>
+    <span class="synIdentifier">&lt;parm&gt;&lt;</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">value-of</span><span class="synIdentifier"> </span><span class="synType">select</span>=<span class="synConstant">"."</span><span class="synIdentifier">/&gt;&lt;/parm&gt;</span>
+  <span class="synIdentifier">&lt;/cmd&gt;</span>
+<span class="synIdentifier">&lt;/</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">template</span><span class="synIdentifier">&gt;</span>
+
+<span class="synIdentifier">&lt;/</span><span class="synSpecial">xsl</span><span class="synComment">:</span><span class="synStatement">stylesheet</span><span class="synIdentifier">&gt;</span>
+</span></pre>
+    <p>On the one hand, the only achievement is that complexity is moved to XSLT. But on the other hand, it's a great improvement: the non-trivial construction is written only once (<tt>section</tt> command with the <tt>texorpdfstring</tt> and <tt>pdf</tt> commands inside the option). In addition, the complexity is hidden from the authors who write texts in XML and don't know much about LaTeX.</p>
+  <p>Next step: &#8220;<a href="tour_encoding.html">Encodings</a>&#8221;</p>
+<hr>
+<div class="footnote">
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" vspace="10"></a><br>This page: <a href="http://getfo.org/texml/tour_xslt.html">http://getfo.org/texml/tour_xslt.html</a><br>
+</div>
+</body>
+</html>

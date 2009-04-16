@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Manpage of texml</title>
+<meta name="keywords" content="texml,man">
+<meta name="description" content="Manpage of texml">
+<link rel="stylesheet" type="text/css" href="texml.css">
+</head>
+<body>
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" align="right"></a><a name="id2245146"></a><h1>Manpage of texml</h1>
+<h2>NAME</h2>
+texml - Serialize TeXML to TeX (LaTeX, ConTeXt) 
+<h2>SYNOPSIS</h2>
+<b>texml</b> [ <i>options</i> ] <i>inputfile</i> <i>outputfile</i>
+
+<h2>DESCRIPTION</h2>
+Convert TeXML file <i>inputfile</i> to TeX file <i>outfile</i>. The
+special file name "<i>-</i>" means the standard input or standard
+output, correspondingly.
+<dl compact>
+<dt>
+<b>-w</b>, <b>--width</b> <i>width</i>
+</dt>
+<dd>If possible, split long lines on smaller ones of the desired
+width.</dd>
+<dt>
+<b>-e</b>, <b>--encoding</b> <i>encoding</i>
+</dt>
+<dd>Output encoding. Should be known to the Python codecs. Default
+is ASCII.</dd>
+<dt>
+<b>-a</b>, <b>--ascii</b>
+</dt>
+<dd>Use only ASCII symbols for output. Non-ASCII bytes are escaped
+using the <b>^^XX</b> form, where <b>XX</b> is a hexadecimal code
+of the character.</dd>
+<dt>
+<b>-c</b>, <b>--context</b>
+</dt>
+<dd>Activate ConTeXt support.</dd>
+</dl>
+
+<h2>AUTHOR</h2>
+Oleg Parashchenko &lt;<a href="mailto:olpa@users.sourceforge.net">olpa@users.sourceforge.net</a>&gt;
+
+<h2>SEE ALSO</h2>
+<a href="http://getfo.org/texml/">http://getfo.org/texml/</a>
+<p><a href="http://uucode.com/blog/category/texml/">http://uucode.com/blog/category/texml/</a></p>
+<hr>
+<div class="footnote">
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" vspace="10"></a><br>This page: <a href="http://getfo.org/texml/texml.html">http://getfo.org/texml/texml.html</a><br>
+</div>
+</body>
+</html>

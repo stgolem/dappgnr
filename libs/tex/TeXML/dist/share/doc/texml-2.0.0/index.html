@@ -1,0 +1,107 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>TeXML: an XML syntax for TeX (LaTeX, ConTeXt)</title>
+<meta name="keywords" content="tex,xml,latex,context,pdf,texml,xsl,xslt,xslfo,xsl-fo,publishing,xml2pdf,xmltopdf">
+<meta name="description" content="TeXML is an XML syntax for TeX. The processor transforms the TeXML markup into the TeX markup, escaping special and out-of-encoding characters. The intended audience is developers who automatically generate [La]TeX or ConTeXt files.">
+<link rel="stylesheet" type="text/css" href="texml.css">
+</head>
+<body>
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" align="right"></a>
+  
+  
+  <a name="id2245153"></a><h1>TeXML: an XML syntax for TeX (LaTeX, ConTeXt)</h1>
+  <ul>
+    <li>Do you generate TeX code? Then <a href="http://prdownloads.sourceforge.net/getfo/texml-2.0.0.tar.gz?download">download</a> and try TeXML.</li>
+    <li>Do you convert XML to TeX? Then you ought to use TeXML.</li>
+  </ul>
+  <p>TeXML is an XML syntax for TeX. The processor transforms the TeXML markup into the TeX markup, escaping special and out-of-encoding characters. The intended audience is developers who automatically generate [La]TeX or ConTeXt files.</p>
+  <h2>XML to PDF &#8212; TeXML vs XSL-FO</h2>
+  <p>Similarity:</p>
+  <ul>
+    <li>Both TeXML and XSL-FO are an intermediate step in publishing XML as PDF.</li>
+    <li>&#8212; In the XSL-FO way, you need an XSL-FO stylesheet.
+      <br>&#8212; By analogue, in the TeXML way, you need a TeXML stylesheet.</li>
+  </ul>
+  <p>Differences:</p>
+  <ul>
+    <li>&#8212; Open-source XSL-FO tools are not yet production quality;
+      <br>&#8212; LaTeX has been a reliable standard for decades.</li>
+    <li>&#8212; XSL-FO is for good enough PDFs;
+      <br>&#8212; TeXML is targeted to the minority to create excellent PDFs.</li>
+  </ul>
+  <h2>XML to TeX &#8212; TeXML vs Perl/Java/Python/etc</h2>
+  <p>Development cost of converting XML to TeX using different approaches:</p>
+  <table border="0" width="100%">
+    <tr>
+      <th>100*k man-hours</th>
+      <th>100*k man-hours</th>
+      <th>k man-hours</th>
+    </tr>
+    <tr>
+      <td width="33%" align="center"><img src="graph1.png" width="320" height="240" border="0" alt="Cost of XML to TeX using Perl/Java/Python/etc" title="Cost of XML to TeX using Perl/Java/Python/etc"></td>
+      <td width="33%" align="center"><img src="graph2.png" width="320" height="240" border="0" alt="Cost of XML to TeX using XSLT only" title="Cost of XML to TeX using XSLT only"></td>
+      <td width="33%" align="center"><img src="graph3.png" width="320" height="240" border="0" alt="Cost of XML to TeX using XSLT plus TeXML" title="Cost of XML to TeX using XSLT plus TeXML"></td>
+    </tr>
+    <tr>
+      <td colspan="3"><font size="-1"><i>Convert: decide, for example, that &lt;p&gt; is a paragraph, &lt;note&gt; is a table, etc<br>
+Serialize: write result as a valid TeX file</i></font></td>
+    </tr>
+  </table>
+  <p>XSLT is very poor at working with strings, so it is hard to write valid TeX. In contrast, Perl etc. are excellent at handling strings and so can easily produce TeX, but they are inconvenient to manipulate an XML. The solution is TeXML.</p>
+  <ul>
+    <li>XSLT is an ideal tool to convert XML to XML, and TeXML is an XML syntax for TeX.</li>
+    <li>A TeXML processor makes the rest, serializing TeXML to TeX.</li>
+  </ul>
+  <h2>TeXML benefits</h2>
+  <ul>
+    <li>LaTeX and ConTeXt support.</li>
+    <li>No need to bother escaping TeX special characters.</li>
+    <li>No need to bother about empty lines in paragraphs.</li>
+    <li>More than 700 unicode characters are mapped to LaTeX commands.</li>
+    <li>Support for international publishing.</li>
+    <li>Generated TeX code is human-friendly.</li>
+    <li>Open source under the MIT/X Consortium license. Can be used in commercial applications.</li>
+  </ul>
+  <h2>Resources</h2>
+  <ul>
+    <li>
+<a href="http://prdownloads.sourceforge.net/getfo/texml-2.0.0.tar.gz?download">Download</a> TeXML</li>
+    <li>
+<a href="http://lists.sourceforge.net/lists/listinfo/getfo-general">Join</a> the getfo-general mailing list or visit the <a href="http://news.gmane.org/gmane.comp.tex.getfo%2btexml">archive at gmane</a>.</li>
+    <li>Take the TeXML tour:
+      <ul>
+        <li>Step 1: <a href="tour_simple.html">Simple TeXML file</a>
+</li>
+<li>Step 2: <a href="tour_more.html">More TeXML</a>
+</li>
+<li>Step 3: <a href="tour_better.html">Better layout</a>
+</li>
+<li>Step 4: <a href="tour_pdf.html">PDF literal strings</a>
+</li>
+<li>Step 5: <a href="tour_xslt.html">TeXML and XSLT</a>
+</li>
+<li>Step 6: <a href="tour_encoding.html">Encodings</a>
+</li>
+<li>Step 7: <a href="tour_ascii.html">ASCII output</a>
+</li>
+      </ul>
+    </li>
+    <li>Check a <a href="thesis.html">thesis</a> for a conference</li>
+    <li>Read documentation:
+      <ul>
+        <li><a href="install.html">Installing TeXML</a></li>
+        <li><a href="texml.html">Using TeXML</a></li>
+        <li><a href="python.html">Using TeXML in Python</a></li>
+        <li><a href="spec.html">TeXML specification</a></li>
+      </ul>
+    </li>
+    <li>Paul Tremblay's <a href="http://getfo.org/context_xml/index.html">context-xml documentation project</a> as an alternative to XSL-FO</li>
+    <li>Developer's <a href="http://uucode.com/blog/category/texml/">blog on TeXML</a>
+</li>
+  </ul>
+<hr>
+<div class="footnote">This page: <a href="http://getfo.org/texml/index.html">http://getfo.org/texml/index.html</a><br>Project area: <a href="http://sourceforge.net/projects/getfo/">http://sourceforge.net/projects/getfo/</a>
+</div>
+</body>
+</html>

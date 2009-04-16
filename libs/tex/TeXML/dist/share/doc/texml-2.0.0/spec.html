@@ -1,0 +1,511 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>TeXML specification</title>
+<meta name="keywords" content="texml,specification,pdf">
+<meta name="description" content="Specification of the TeXML format, which is an XML syntax for TeX.">
+<link rel="stylesheet" type="text/css" href="texml.css">
+</head>
+<body>
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" align="right"></a>
+  <a name="id2245141"></a><h1>TeXML specification</h1>
+  
+  
+  <p><a href="http://getfo.org/texml/">TeXML</a> is an XML syntax for TeX. A processor translates TeXML source into TeX.</p>
+  <p>The Document Type Definition (DTD) for TeXML can be found in a TeXML distribution package.</p>
+
+  
+    <a name="id2245168"></a><h2 toc="0">Table of Contents</h2>
+    <ul>
+<li><a href="#id2245179">Root element: <code>TeXML</code></a></li>
+<li><a href="#id2245203">Encoding commands: <code>cmd</code></a></li>
+<li><a href="#id2245294">Encoding environments: <code>env</code></a></li>
+<li><a href="#id2245333">Encoding groups: <code>group</code></a></li>
+<li><a href="#id2245373">Encoding math groups: <code>math</code> and <code>dmath</code></a></li>
+<li><a href="#id2245425">Encoding control symbols: <code>ctrl</code></a></li>
+<li><a href="#id2245467">Encoding special symbols: <code>spec</code></a></li>
+<li><a href="#id2245951">PDF literals: <code>pdf</code></a></li>
+<li>
+<a href="#id2245989">Advanced topics</a><ul>
+<li><a href="#id2245997">Characters</a></li>
+<li><a href="#id2246309">Empty lines</a></li>
+<li><a href="#id2246349">Ligatures</a></li>
+<li><a href="#id2246424">Modes</a></li>
+<li><a href="#id2246496">Whitespace processing</a></li>
+<li>
+<a href="#id2246627">Tuning layout</a><ul>
+<li><a href="#id2246640">Empty group after a command</a></li>
+<li><a href="#id2246696">Automatic line breaks</a></li>
+<li><a href="#id2246739">Whitespace around commands</a></li>
+<li><a href="#id2246764">Whitespace around environments</a></li>
+<li><a href="#id2246792">Forced whitespace</a></li>
+</ul>
+</li>
+<li><a href="#id2246856">TeXML namespace</a></li>
+<li><a href="#id2246879">ConTeXt support</a></li>
+</ul>
+</li>
+</ul>
+  
+
+  
+  
+    <a name="id2245179"></a><h2>Root element: <code>TeXML</code>
+</h2>
+    <blockquote><pre>&lt;?xml version="1.0" encoding="..."?&gt;
+&lt;TeXML&gt;
+  ... your content here ...
+&lt;/TeXML&gt;
+</pre></blockquote>
+    <p>The root element of a TeXML document is the element <code>TeXML</code>.</p>
+  
+  
+  
+    <a name="id2245203"></a><h2>Encoding commands: <code>cmd</code>
+</h2>
+    <blockquote>
+      <para>TeXML:</para>
+<pre>&lt;cmd name="documentclass"&gt;
+  &lt;opt&gt;12pt&lt;/opt&gt;
+  &lt;parm&gt;letter&lt;/parm&gt;
+&lt;/cmd&gt;</pre>
+    </blockquote>
+    <blockquote>
+      <para>TeX:</para>
+      <pre>\documentclass[12pt]{letter}</pre>
+    </blockquote>
+    <a name="cmd"></a><p>The TeXML <code>cmd</code> element encodes TeX commands.</p>
+    <ul>
+      <li>To add options to a command, add <code>opt</code> children to the <code>cmd</code> element. The processor places <code>opt</code> children within square braces, as LaTeX style options.</li>
+      <li>To add parameters to a command, add <code>parm</code> children to the <code>cmd</code> element. The processor places <code>parm</code> children within TeX groups, that is, curly braces.</li>
+    </ul>
+    <p>The TeXML <code>cmd</code> can have several <code>parm</code> or <code>opt</code> elements.</p>
+  
+
+
+  
+    <a name="id2245294"></a><h2>Encoding environments: <code>env</code>
+</h2>
+    <blockquote>
+      <para>TeXML:</para>
+<pre>&lt;env name="document"&gt;
+...
+&lt;/env&gt;</pre>
+    </blockquote>
+    <blockquote>
+      <para>TeX:</para>
+<pre>\begin{document}
+...
+\end{document}</pre>
+    </blockquote>
+    <p>The element <code>env</code> is a convenience for expressing LaTeX environments.</p>
+  
+
+
+  
+    <a name="id2245333"></a><h2>Encoding groups: <code>group</code>
+</h2>
+    <blockquote>
+      <para>TeXML:</para>
+      <pre>&lt;group&gt;&lt;cmd name="it"/&gt;italics&lt;/group&gt;</pre>
+    </blockquote>
+    <blockquote>
+      <para>TeX:</para>
+      <pre>{\it italics}</pre>
+    </blockquote>
+    <p>The <code>group</code> element is a convenience for encoding groups. The processor will supply an opening brace at the beginning, and a closing brace at the end of the group.</p>
+  
+
+  
+    <a name="id2245373"></a><h2>Encoding math groups: <code>math</code> and <code>dmath</code>
+</h2>
+    <blockquote>
+      <para>TeXML:</para>
+<pre>&lt;math&gt;a+b&lt;/math&gt;
+&lt;dmath&gt;&lt;cmd name="sqrt"&gt;&lt;parm&gt;2&lt;/parm&gt;&lt;/cmd&gt;&lt;/dmath&gt;</pre>
+    </blockquote>
+    <blockquote>
+      <para>TeX:</para>
+<pre>$a+b$
+$$\sqrt{2}$$</pre>
+    </blockquote>
+    <p>Elements <code>math</code> and <code>dmath</code> are conveniences for encoding math groups. The processor inserts the appropriate math shift symbol at the beginning and end of the group and also switches mode to <tt>math</tt> inside the group.</p>
+  
+
+  
+    <a name="id2245425"></a><h2>Encoding control symbols: <code>ctrl</code>
+</h2>
+    <blockquote>
+      <para>TeXML:</para>
+      <pre>line1&lt;ctrl ch="\"/&gt;line2</pre>
+    </blockquote>
+    <blockquote>
+      <para>TeX:</para>
+      <pre>line1\\line2</pre>
+    </blockquote>
+    <p>The <code>ch</code> attibute of the <code>ctrl</code> element encodes a control symbol.</p>
+  
+
+  
+    <a name="id2245467"></a><h2>Encoding special symbols: <code>spec</code>
+</h2>
+    <blockquote>
+      <para>TeXML:</para>
+      <pre>&lt;spec cat="vert"/&gt;l&lt;spec cat="vert"/&gt;</pre>
+    </blockquote>
+    <blockquote>
+      <para>TeX:</para>
+      <pre>|l|</pre>
+    </blockquote>
+    <p>The attribute <code>cat</code> of the element <code>spec</code> creates the corresponding symbol verbatim, without escaping.</p>
+    <table border="1">
+      <caption>
+<code>cat</code> attribute values</caption>
+      <tr>
+        <th>description</th>
+        <th>
+<code>cat</code> value</th>
+        <th>output</th>
+      </tr>
+      <tr>
+        <td>escape character</td>
+        <td>esc</td>
+        <td>\</td>
+      </tr>
+      <tr>
+        <td>begin group</td>
+        <td>bg</td>
+        <td>{</td>
+      </tr>
+      <tr>
+        <td>end group</td>
+        <td>eg</td>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>math shift</td>
+        <td>mshift</td>
+        <td>$</td>
+      </tr>
+      <tr>
+        <td>alignment tab</td>
+        <td>align</td>
+        <td>&amp;</td>
+      </tr>
+      <tr>
+        <td>parameter</td>
+        <td>parm</td>
+        <td>#</td>
+      </tr>
+      <tr>
+        <td>superscript</td>
+        <td>sup</td>
+        <td>^</td>
+      </tr>
+      <tr>
+        <td>subscript</td>
+        <td>sub</td>
+        <td>_</td>
+      </tr>
+      <tr>
+        <td>tilde</td>
+        <td>tilde</td>
+        <td>~</td>
+      </tr>
+      <tr>
+        <td>comment</td>
+        <td>comment</td>
+        <td>%</td>
+      </tr>
+      <tr>
+        <td>vertical line</td>
+        <td>vert</td>
+        <td>|</td>
+      </tr>
+      <tr>
+        <td>less than</td>
+        <td>lt</td>
+        <td>&lt;</td>
+      </tr>
+      <tr>
+        <td>greater than</td>
+        <td>gt</td>
+        <td>&gt;</td>
+      </tr>
+    </table>
+  
+
+  
+    <a name="id2245951"></a><h2>PDF literals: <code>pdf</code>
+</h2>
+    <blockquote>
+      <para>TeXML:</para>
+      <pre>&lt;pdf&gt;&#964;&#949;&#967;&lt;/pdf&gt;</pre>
+    </blockquote>
+    <blockquote>
+      <para>TeX:</para>
+      <pre>\003\304\003\265\003\307</pre>
+    </blockquote>
+    <p>Content of the element <code>pdf</code> is converted to UTF16BE encoding and represented using escaped octal codes. The result is a PDF unicode string.</p>
+  
+
+  
+    <a name="id2245989"></a><h2>Advanced topics</h2>
+    <ul>
+<li><a href="#id2245997">Characters</a></li>
+<li><a href="#id2246309">Empty lines</a></li>
+<li><a href="#id2246349">Ligatures</a></li>
+<li><a href="#id2246424">Modes</a></li>
+<li><a href="#id2246496">Whitespace processing</a></li>
+<li>
+<a href="#id2246627">Tuning layout</a><ul>
+<li><a href="#id2246640">Empty group after a command</a></li>
+<li><a href="#id2246696">Automatic line breaks</a></li>
+<li><a href="#id2246739">Whitespace around commands</a></li>
+<li><a href="#id2246764">Whitespace around environments</a></li>
+<li><a href="#id2246792">Forced whitespace</a></li>
+</ul>
+</li>
+<li><a href="#id2246856">TeXML namespace</a></li>
+<li><a href="#id2246879">ConTeXt support</a></li>
+</ul>
+    
+  
+    <a name="id2245997"></a><h3>Characters</h3>
+    <p>Characters are processed as follows:</p>
+    <ul>
+      <li>If a character has a special meaning for TeX, then the character is translated as shown in the table below.</li>
+      <li>If the character belongs to an output encoding, then the character is output as-is.</li>
+      <li>If the character exists in a LaTeX unicode mapping table, then a corresponding substitution for the character is used.</li>
+      <li>Otherwise the character is output as <tt>\unicodechar{NNNNN}</tt> where <tt>NNNNN</tt> is the decimal code for the character.</li>
+    </ul>
+    <p>To leave specials as is, without escaping, use the <code>TeXML</code> attribute <code>escape</code>:</p>
+    <blockquote>
+      <pre>&lt;TeXML escape="0"&gt;...&lt;/TeXML&gt;</pre>
+    </blockquote>
+    <table border="1">
+      <caption>Mapping of the special symbols</caption>
+      <tr>
+        <th>symbol</th>
+        <th>text mode</th>
+        <th>math mode</th>
+      </tr>
+      <tr>
+        <td>\</td>
+        <td>\textbackslash{}</td>
+        <td>\backslash{}</td>
+      </tr>
+      <tr>
+        <td>{</td>
+        <td>\{</td>
+        <td>\{</td>
+      </tr>
+      <tr>
+        <td>}</td>
+        <td>\}</td>
+        <td>\}</td>
+      </tr>
+      <tr>
+        <td>$</td>
+        <td>\textdollar{}</td>
+        <td>\$</td>
+      </tr>
+      <tr>
+        <td>&amp;</td>
+        <td>\&amp;</td>
+        <td>\&amp;</td>
+      </tr>
+      <tr>
+        <td>#</td>
+        <td>\#</td>
+        <td>\#</td>
+      </tr>
+      <tr>
+        <td>^</td>
+        <td>\^{}</td>
+        <td>\^{}</td>
+      </tr>
+      <tr>
+        <td>_</td>
+        <td>\_</td>
+        <td>\_</td>
+      </tr>
+      <tr>
+        <td>~</td>
+        <td>\textasciitilde{}</td>
+        <td>\~{}</td>
+      </tr>
+      <tr>
+        <td>%</td>
+        <td>\%</td>
+        <td>\%</td>
+      </tr>
+      <tr>
+        <td>|</td>
+        <td>\textbar{}</td>
+        <td>|</td>
+      </tr>
+      <tr>
+        <td>&lt;</td>
+        <td>\textless{}</td>
+        <td>&lt;</td>
+      </tr>
+      <tr>
+        <td>&gt;</td>
+        <td>\textgreater{}</td>
+        <td>&gt;</td>
+      </tr>
+    </table>
+    <p>The LaTeX mapping table for unicode characters is automatically generated from the file <a href="http://www.w3.org/Math/characters/unicode.xml">unicode.xml</a>. This file is an appendix for the W3C MathML specification.</p>
+    <p>If a replacement of an unicode character <i>a)</i> is valid only in math mode and <i>b)</i> the current mode is text, then the replacement is wrapped by the command &#8220;<tt>\ensuremath</tt>&#8221;. Likewise if a replacement <i>a)</i> is valid only in text mode and <i>b)</i> the current mode is math, then wrapper &#8220;<tt>\ensuretext</tt>&#8221; is used.</p>
+    <p>LaTeX does not have the command &#8220;<tt>\ensuretext</tt>&#8221; so you should define it yourself. One of the approaches is:</p>
+    <blockquote>
+      <pre>\def\ensuretext{\textrm}</pre>
+    </blockquote>
+  
+
+  
+    <a name="id2246309"></a><h3>Empty lines</h3>
+    <p>Empty lines have a special meaning for TeX. They cause automatic generation of the TeX command <tt>\par</tt>. To avoid this, the processor outputs a line with the one symbol <tt>%</tt> (TeX comment) instead of a empty line.</p>
+    <p>To leave empty lines as is, use the <code>TeXML</code> attribute <code>emptylines</code>:</p>
+    <blockquote>
+      <pre>&lt;TeXML emptylines="1"&gt;...&lt;/TeXML&gt;</pre>
+    </blockquote>
+  
+
+  
+    <a name="id2246349"></a><h3>Ligatures</h3>
+    <p>The TeXML processor disconnects well-known ligatures &#8220;<tt>--</tt>&#8221;, &#8220;<tt>---</tt>&#8221;, &#8220;<tt>``</tt>&#8221;, &#8220;<tt>''</tt>&#8221;, &#8220;<tt>!`</tt>&#8221; and &#8220;<tt>?`</tt>&#8221;. These ligatures are converted into &#8220;<tt>-{}-</tt>&#8221;, &#8220;<tt>-{}-{}-</tt>&#8221;, &#8220;<tt>`{}`</tt>&#8221;, &#8220;<tt>'{}'</tt>&#8221;, &#8220;<tt>!{}`</tt>&#8221;, and &#8220;<tt>?{}`</tt>&#8221; respectively.</p>
+    <p>To leave ligatures as is, use the <code>TeXML</code> attribute <code>ligatures</code>:</p>
+    <blockquote>
+      <pre>&lt;TeXML ligatures="1"&gt;...&lt;/TeXML&gt;</pre>
+    </blockquote>
+  
+
+  
+    <a name="id2246424"></a><h3>Modes</h3>
+    <p>There are two modes: <tt>text</tt> and <tt>math</tt>. Modes only affect the translation of characters.</p>
+    <p>The default mode is <tt>text</tt>. In order to change mode, use the <code>mode</code> attribute of the element <code>TeXML</code>. The possible values for this attribute are <tt>math</tt> and <tt>text</tt>. If the element <code>TeXML</code> is used without attribute <code>mode</code>, then the mode is not changed.</p>
+    <blockquote>
+<pre>&lt;TeXML mode="math"&gt;
+  ... math mode here ...
+  &lt;TeXML mode="text"&gt;... text mode here ...&lt;/TeXML&gt;
+&lt;/TeXML&gt;</pre>
+    </blockquote>
+    <p>Elements <code>math</code> and <code>dmath</code> also change mode to <tt>math</tt>.</p>
+  
+
+  
+    <a name="id2246496"></a><h3>Whitespace processing</h3>
+    <a name="wsproc"></a><p>The TeXML processor performs advanced whitespace processing. The program</p>
+    <ul>
+      <li>removes what can be regarded as insignificant whitespace, and</li>
+      <li>introduces its own whitespace which would look reasonable from a human point of view.</li>
+    </ul>
+    <p>If you find that something goes wrong you can switch off whitespace elimination using the <code>ws</code> attribute of the <code>TeXML</code> tag.</p>
+    <blockquote>
+      <pre>&lt;TeXML ws="1"&gt;
+  ... whitespace is verbatim here ...
+&lt;/TeXML&gt;</pre>
+    </blockquote>
+    <p>If the TeXML elements <tt>ctrl</tt> or <tt>spec</tt> have any content (including whitespace) then the TeXML processor reports an error.</p>
+    <p>The program deletes any whitespace that is located directly in the TeXML element <tt>cmd</tt>.</p>
+    <p>Insignificant whitespace is whitespace around any opening or closing tag, for example, whitespace around &#8220;<tt>... &lt;TeXML&gt; ...</tt>&#8221; and &#8220;<tt>... &lt;/TeXML&gt; ...</tt>&#8221;. The XML reader converts insignificant whitespace into the <i>weak space</i>.</p>
+    <p>Another source of weak spaces is TeX commands. When the processor converts &#8220;<tt>&lt;cmd name="it"/&gt;</tt>&#8221; into &#8220;<tt>\it </tt>&#8221;, the space after &#8220;<tt>\it</tt>&#8221; is a weak space.</p>
+    <p>The TeX writer processes weak spaces in the following manner:</p>
+    <ul>
+      <li>repeated weak spaces are interpreted as one weak space,</li>
+      <li>a weak space at the beginning of a line is ignored,</li>
+      <li>a weak space at the end of a line is ignored,</li>
+      <li>otherwise the usual space symbol (or new line, see below) is written.</li>
+    </ul>
+  
+
+  
+    <a name="id2246627"></a><h3>Tuning layout</h3>
+    <p>The resulting documents are usually very good, but after some tuning they can be even better. This section describes how whitespace is handled and introduces some hints to make resulting documents look as good as handcrafted.</p>
+  
+    
+      <a name="id2246640"></a><h4>Empty group after a command</h4>
+      <p>If a command has no parameters and options then the TeXML processor adds an empty group &#8220;<tt>{}</tt>&#8221; after the command name: &#8220;<tt>\smth{}</tt>&#8221;. Without the empty group, the following whitespace is ignored by TeX, but sometimes it is exactly what you need. In this case set attribute &#8220;<tt>gr</tt>&#8221; (shortcut for &#8220;group&#8221;) to &#8220;<tt>0</tt>&#8221;.</p>
+      <blockquote>
+        <para>TeXML:</para>
+        <pre>&lt;cmd name="it"/&gt; once, &lt;cmd name="it" gr="0"/&gt; twice</pre>
+      </blockquote>
+      <blockquote>
+        <para>TeX:</para>
+        <pre>\it{} once, \it twice</pre>
+      </blockquote>
+    
+
+    
+      <a name="id2246696"></a><h4>Automatic line breaks</h4>
+      <p>It's difficult to work with documents that are one long line as a result of transformation, so the TeXML processor performs automatic line breaking.</p>
+      <ul>
+        <li>TeX commands for beginning and ending an environment are placed on separated lines.</li>
+        <li>If a weak space appears far enough from the beginning of line then a new line is started.</li>
+      </ul>
+      <p>By default &#8220;far enough&#8221; is 62. You can set another value by using command line parameter &#8220;<tt>-w</tt>&#8221; or &#8220;<tt>--width</tt>&#8221;. This setting is not strict: a line can be much longer than a specified width, if there are no spaces in it.</p>
+    
+
+    
+      <a name="id2246739"></a><h4>Whitespace around commands</h4>
+      <p>Attributes <code>nl1</code> and <code>nl2</code> can be used to force a new line before (<code>nl1</code>) or after (<code>nl2</code>) TeX command.</p>
+    
+
+    
+      <a name="id2246764"></a><h4>Whitespace around environments</h4>
+      <p>The TeXML processor automatically creates new lines around the beginning and the end of an environment. You can change this behaviour using four attributes: <code>nl1</code> (before the beginning), <code>nl2</code> (after the beginning), <code>nl3</code> (before the end) and <code>nl4</code> (after the end).</p>
+    
+
+    
+      <a name="id2246792"></a><h4>Forced whitespace</h4>
+      <p>You can affect whitespace output by using special categories of the element <code>spec</code>: <tt>nl</tt>, <tt>nl?</tt>, <tt>space</tt> and <tt>nil</tt>.</p>
+    
+    <ul>
+      <li>
+<tt>nl</tt> stands for a new line.</li>
+      <li>
+<tt>nl?</tt> is a conditional version of the <tt>nl</tt>. A new line is created unless it is already created.</li>
+      <li>
+<tt>space</tt> stands for a space. You can use it to output several consequent spaces or to create a space at the beginning or end of a line.</li>
+      <li>
+<tt>nil</tt> stands for nothing. The only purpose of it is a side effect: whitespace around it is collapsed.</li>
+    </ul>
+  
+
+  
+    <a name="id2246856"></a><h3>TeXML namespace</h3>
+    <p>TeXML namespace is <tt>http://getfo.sourceforge.net/texml/ns1</tt>.</p>
+    <blockquote>
+      <pre>&lt;TeXML xmlns="http://getfo.sourceforge.net/texml/ns1"&gt;
+  ...
+&lt;/TeXML&gt;</pre>
+    </blockquote>
+  
+
+  
+    <a name="id2246879"></a><h3>ConTeXt support</h3>
+    <p>In the ConTeXt mode, the element <code>env</code> creates ConTeXt environments.</p>
+    <blockquote>
+      <para>TeXML:</para>
+<pre>&lt;env name="document"&gt;
+...
+&lt;/env&gt;</pre>
+    </blockquote>
+    <blockquote>
+      <para>TeX:</para>
+<pre>\begindocument
+...
+\enddocument</pre>
+    </blockquote>
+    <p>To activate ConTeXt mode, give the command line option <tt>-c</tt> or <tt>--context</tt> to the TeXML processor.</p>
+  
+
+
+<hr>
+<div class="footnote">
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" vspace="10"></a><br>This page: <a href="http://getfo.org/texml/spec.html">http://getfo.org/texml/spec.html</a><br>
+</div>
+</body>
+</html>

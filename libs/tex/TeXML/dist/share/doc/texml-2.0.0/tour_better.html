@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Better layout</title>
+<meta name="keywords" content="texml,example">
+<meta name="description" content="Explanation how to tune layout of the generated TeX code.">
+<link rel="stylesheet" type="text/css" href="texml.css">
+</head>
+<body>
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" align="right"></a><div style="width:150;float:right;font-size:66%;">Previous step: &#8220;<a href="tour_more.html">More TeXML</a>&#8221;</div>
+    
+    <a name="id2245338"></a><h1>Better layout</h1>
+    
+    <p>This example demonstrates how to tune the layout of a generated LaTeX code. The result can be made indistinguishable from code written by a human.</p>
+    <p>On the previous step, we got the following LaTeX document:</p>
+    <pre><span xml:base="code/tour_better1.out.xml"><span class="synStatement">\documentclass</span><span class="synSpecial">[</span><span class="synConstant">a4paper</span><span class="synSpecial">]{</span><span class="synPreProc">article</span><span class="synSpecial">}</span> <em>....</em>
+<span class="synPreProc">\begin{document}</span>
+Hello, <span class="synSpecial">{</span><em><span class="synType">\it</span><span class="synSpecial">{}</span></em>World<span class="synSpecial">}</span>!
+<span class="synPreProc">\end{document}</span>
+</span></pre>
+    <p>A better code layout is:</p>
+    <pre><span xml:base="code/tour_better2.out.xml"><span class="synStatement">\documentclass</span><span class="synSpecial">[</span><span class="synConstant">a4paper</span><span class="synSpecial">]{</span><span class="synPreProc">article</span><span class="synSpecial">}</span>
+<em>....</em>
+<span class="synPreProc">\begin{document}</span>
+Hello, <span class="synSpecial">{</span><em><span class="synType">\it</span></em> World<span class="synSpecial">}</span>!
+<span class="synPreProc">\end{document}</span>
+</span></pre>
+    <p>The source TeXML code uses the attributes <tt>nl2</tt> and <tt>gr</tt> to tune the layout:</p>
+    <pre><span xml:base="code/tour_better.xml.xml"><span class="synIdentifier">&lt;TeXML&gt;</span>
+  <span class="synIdentifier">&lt;cmd </span><span class="synType">name</span>=<span class="synConstant">"documentclass"</span><span class="synIdentifier"> </span><em><span class="synType">nl2</span>=<span class="synConstant">"1"</span></em><span class="synIdentifier">&gt;</span>
+    <span class="synIdentifier">&lt;opt&gt;</span>a4paper<span class="synIdentifier">&lt;/opt&gt;</span>
+    <span class="synIdentifier">&lt;parm&gt;</span>article<span class="synIdentifier">&lt;/parm&gt;</span>
+  <span class="synIdentifier">&lt;/cmd&gt;</span>
+  ....
+  <span class="synIdentifier">&lt;env </span><span class="synType">name</span>=<span class="synConstant">"document"</span><span class="synIdentifier">&gt;</span>
+    Hello, <span class="synIdentifier">&lt;group&gt;&lt;cmd </span><span class="synType">name</span>=<span class="synConstant">"it"</span><span class="synIdentifier"> </span><em><span class="synType">gr</span>=<span class="synConstant">"0"</span></em><span class="synIdentifier">/&gt;</span>World<span class="synIdentifier">&lt;/group&gt;</span>!
+  <span class="synIdentifier">&lt;/env&gt;</span>
+<span class="synIdentifier">&lt;/TeXML&gt;</span>
+</span></pre>
+  <p>Next step: &#8220;<a href="tour_pdf.html">PDF literal strings</a>&#8221;</p>
+<hr>
+<div class="footnote">
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" vspace="10"></a><br>This page: <a href="http://getfo.org/texml/tour_better.html">http://getfo.org/texml/tour_better.html</a><br>
+</div>
+</body>
+</html>

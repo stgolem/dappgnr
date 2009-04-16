@@ -1,0 +1,101 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Using TeXML in Python</title>
+<meta name="keywords" content="texml,python,module">
+<meta name="description" content="How to use TeXML Python module.">
+<link rel="stylesheet" type="text/css" href="texml.css">
+</head>
+<body>
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" align="right"></a>
+  <a name="id2245141"></a><h1>Using TeXML in Python</h1>
+  
+  
+  <p>The module <tt>Texml.process</tt> converts a TeXML file to a TeX file.</p>
+  <p>Basic use requires the following:</p>
+  <ol>
+    <li>Import the needed libraries</li>
+    <li>Set up the input and output streams</li>
+    <li>Call on the function <tt>process</tt>
+</li>
+    <li>Use a try-except block around the call to <tt>process</tt>
+</li>
+    <li>Clean up resources</li>
+  </ol>
+  
+    <a name="id2245191"></a><h2>Parameters for the function <tt>process</tt>
+</h2>
+    <dl>
+      <dt><tt>in_stream</tt></dt>
+      <dd>An input TeXML document as a file object or the path to a file. Mandatory.</dd>
+      <dt><tt>out_stream</tt></dt>
+      <dd>An output TeX document as a file object. Mandatory.</dd>
+      <dt><tt>autonl_width</tt></dt>
+      <dd>Recommended width to split long lines on smaller ones. Optional, default is <tt>62</tt>.</dd>
+      <dt><tt>encoding</tt></dt>
+      <dd>Output encoding. Should be known to the Python codecs. Optional, default is <tt>ascii</tt>.</dd>
+      <dt><tt>always_ascii</tt></dt>
+      <dd>Use only ASCII symbols for output. Non-ASCII bytes are escaped using the <tt>^^XX</tt> form, where <tt>XX</tt> is a hexadecimal code of the character. Optional, default is <tt>0</tt> (<tt>False</tt>, do not encode as ASCII).</dd>
+      <dt><tt>use_context</tt></dt>
+      <dd>ConTeXt is an alternative to LaTeX. In ConTeXt mode, TeXML translation is slightly different. Set to <tt>1</tt> (<tt>True</tt>) to activate this mode. Optional, default is <tt>0</tt> (<tt>False</tt>, LaTeX mode).</dd>
+    </dl>
+    <p>If the input file doesn't conform to the TeXML specification, then the exception <tt>TeXML.handler.InvalidXmlException</tt> is raised. If the input parameters are invalid, then the exception <tt>ValueError</tt> is raised. Expect that the underlying libraries might also raise exceptions, such as <tt>xml.sax.SAXException</tt>.</p>
+  
+  
+    <a name="id2245316"></a><h2>Simplest example</h2>
+    <pre><span xml:base="code/example_simple.py.xml"><span class="synComment">#!/usr/bin/python</span>
+
+<span class="synComment"># Import the needed libraries</span>
+<span class="synPreProc">import</span> sys
+<span class="synPreProc">import</span> Texml.processor
+
+<span class="synComment"># Use the standard input and output</span>
+in_stream  = sys.stdin
+out_stream = sys.stdout
+
+<span class="synComment"># Convert</span>
+Texml.processor.process(in_stream, out_stream)
+</span></pre>
+  
+  
+    <a name="id2245332"></a><h2>Full example</h2>
+    <pre><span xml:base="code/example_full.py.xml"><span class="synComment">#!/usr/bin/python</span>
+
+<span class="synComment"># Import the needed libraries</span>
+<span class="synPreProc">import</span> sys
+<span class="synPreProc">import</span> Texml.processor
+
+<span class="synComment"># Input can be given by a path, output should be a file object</span>
+infile = '<span class="synConstant">document.xml</span>'
+out    = file('<span class="synConstant">out.tex</span>', '<span class="synConstant">w</span>')
+<span class="synComment"># Older versions of python need the following code:</span>
+<span class="synComment"># out = open('out.tex', 'w')</span>
+
+<span class="synComment"># Parameters</span>
+width        = 75
+encoding     = '<span class="synConstant">UTF-8</span>'
+always_ascii = 1
+use_context  = 1
+
+<span class="synComment"># Convert TeXML inside a try-except block</span>
+<span class="synStatement">try</span>:
+  Texml.processor.process(
+      in_stream    = infile,
+      out_stream   = out,
+      autonl_width = width,
+      encoding     = encoding,
+      always_ascii = always_ascii,
+      use_context  = use_context)
+<span class="synStatement">except</span> Exception, msg:
+  <span class="synStatement">print</span> sys.stderr, '<span class="synConstant">texml: %s</span>' % str(msg)
+
+<span class="synComment"># Clean up resources</span>
+out.close()
+</span></pre>
+  
+<hr>
+<div class="footnote">
+<a href="index.html"><img src="texml.png" width="100" heaight="60" alt="TeXML" title="TeXML" border="0" vspace="10"></a><br>This page: <a href="http://getfo.org/texml/python.html">http://getfo.org/texml/python.html</a><br>
+</div>
+</body>
+</html>
